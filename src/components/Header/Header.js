@@ -8,6 +8,7 @@ const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }
     <ul className="list-inline">
       <li><Link to='/'>Home</Link></li>
       <li><Link to='/about'>About</Link></li>
+      <li><Link to='/job-list'>Job List</Link></li>
     </ul>
     { !isAuthenticated ? (
       <button onClick={onLoginClick}>Login</button>

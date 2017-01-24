@@ -34,7 +34,7 @@ if (isDeveloping) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  app.get('*', function response(req, res) {
+  app.get(/^(?!.*(api))/, function response(req, res) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
     res.end();
   });
@@ -45,6 +45,17 @@ if (isDeveloping) {
       app.use(route, controllers);
     }
   });
+
+  //--------------------- MONGOOSE
+  mongoose.connect('mongodb://localhost/koala');
+  var db = mongoose.connection;
+  db.on("error", function(err){
+      console.log("Mongoose connection error", err);
+  });
+  db.once("open", function(){
+      console.log("Mongoose connection Successful, check port 3000");
+  });
+
 } else {
   app.use(express.static(__dirname + '/dist'));
   app.get('*', function response(req, res) {

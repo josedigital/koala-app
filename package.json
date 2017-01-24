@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "auth0-lock": "^10.4.0",
+    "axios": "^0.15.3",
     "jwt-decode": "^2.1.0",
     "mongoose": "^4.7.7",
     "mongoose-unique-validator": "^1.0.3",

@@ -56,6 +56,7 @@ router.get('/api/jobs', function( req, res ) {
     {Jobs: 1}, function(err, doc){
       if (err) {
         console.log(err);
+        res.json({error:err})
       } else {
         res.json(doc); //resulting json sent back to front
       }
