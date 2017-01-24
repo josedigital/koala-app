@@ -8,10 +8,14 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const bodyParser = require('body-parser');
+
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const controllers = require('./controllers/index');
 
 

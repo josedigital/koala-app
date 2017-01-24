@@ -97,3 +97,12 @@ export const noteHelpers = {
 export function jobsApi () {
   return axios.get('/api/jobs/all')
 }
+
+export function checkUser (username) {
+  return axios.get(`/api/user/check/${username}`)
+}
+
+export function createUser (profile) {
+  console.log(profile)
+  return axios.post('/api/user/create', profile)
+}

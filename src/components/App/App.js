@@ -1,11 +1,23 @@
 import React from 'react'
 import { HeaderContainer } from '../../containers'
+import { checkUser, createUser } from '../../utils/helpers'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.props.checkLogin() // check is Auth0 lock is authenticating after login callback
   }
+
+  componentDidMount () {
+    console.log(this.props.profile)
+    checkUser(this.props.profile.nickname)
+      .then(({data}) => {
+        if (typeof data.user === 'string')
+          createUser(this.props.profile)
+            .then(data => console.log(data))
+      })
+  }
+  
 
   render() {
     return(

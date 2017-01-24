@@ -3,9 +3,6 @@ var router = express.Router();
 var User = require('../model/model');
 
 
-router.get('/login', function (req, res, next) {
-  res.redirect('/')
-})
 
 
 // ----------------- USERS --------------------------------
@@ -91,6 +88,54 @@ router.put('/api/job/delete', function( req, res ) {
 // ---  create the api
 router.get('/api/testing', function(req, res, next) {
   res.json({test: 'testings'});
+});
+
+router.get('/api/user/check/:username', function(req, res, next) {
+  var username = req.params.username;
+  User.findOne({ username: username }, function (err, user) {
+    console.log('findOne ============')
+    if (err)
+      return done(err);
+    if (user)
+      res.json({user: user});
+    else {
+      res.json({user: 'no user'});
+    }
+      // return done(null, user);
+    // else {
+    //   var newUser = new User();
+    //   newUser.id = profile.id;
+    //   newUser.token = accessToken;
+    //   newUser.username = profile.displayName;
+    //   newUser.email = profile.emails[0].value;
+
+    //   newUser.save(function (err) {
+    //     if (err)
+    //       throw err;
+    //     res.json({newUser});
+    //     // return done(null, newUser);
+    //   });
+    // }
+  });
+
+});
+
+
+router.post('/api/user/create', function (req, res, next) {
+  console.log(req.body);
+  var newUser = new User();
+  newUser.id = req.body.identities[0].user_id;
+  newUser.token = req.body.clientID;
+  newUser.username = req.body.nickname;
+  newUser.email = req.body.email;
+
+  newUser.save(function (err) {
+    if (err)
+      throw err;
+    res.json({newUser});
+    // return done(null, newUser);
+  });
+
 });
 
 
