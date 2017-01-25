@@ -21,11 +21,12 @@ class App extends React.Component {
   
 
   render() {
+    const childrenWithProps = React.Children.map(this.props.children, (child) => React.cloneElement(child, {profile: this.props.profile}))
     return(
       <div className="container">
         <HeaderContainer />
         {
-          this.props.isAuthenticated ? this.props.children : 'no dice'
+          this.props.isAuthenticated ? childrenWithProps : 'no dice'
         }
         
       </div>
