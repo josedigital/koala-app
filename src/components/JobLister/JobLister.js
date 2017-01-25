@@ -21,6 +21,9 @@ class JobLister extends Component {
   }
 }
 
+JobLister.propTypes = {
+  job: React.PropTypes.object.isRequired
+}
 
 
 

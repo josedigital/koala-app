@@ -23,7 +23,7 @@
   "homepage": "https://github.com/amaurymartiny/react-redux-auth0-kit",
   "scripts": {
     "test": "mocha --require mock-local-storage --require test/setup.js \"src/**/*.spec.js\"",
-    "start": "nodemon server",
+    "start": "node server",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "webpack --config ./webpack.production.config.js --progress --profile --colors",
