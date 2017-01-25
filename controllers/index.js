@@ -123,5 +123,65 @@ router.post('/api/user/create', function (req, res, next) {
 
 });
 
+// ----------------- NOTES --------------------------------
+
+// --- save Note
+router.post('/api/job/note/save', function( req, res ) {
+  var Jobs_id = req.body.Jobs_id;
+  var Jobs_Notes_Category = req.body.Jobs_Notes_Category;
+  var Jobs_Notes_NoteText = req.body.Jobs_Notes_NoteText;
+
+    User.update({'username': 'George', 'Jobs._id': Jobs_id},{$push:
+      {'Jobs.$.Notes':{
+          'category': Jobs_Notes_Category,
+          'noteText': Jobs_Notes_NoteText
+          }}},{new:true}).exec(function(err, doc){
+            if (err){
+              console.log(err);
+              } else {
+                res.send(doc);
+              }
+          })
+}),
+
+// --- get Notes
+//Trying to get all notes for one job, but i think we always will get back the entire object, not just the notes.
+router.get('/api/job/notes', function( req, res ) {
+var job_id = req.body.job_id
+	User.find(
+  { 'username': 'andy', 'Jobs.$._id': job_id }).exec(
+    // { 'username': 'andy', 'Jobs._id': job_id },
+  // User.findOne( 
+  //     {'username': "andy",  'Jobs':  
+  //         { $elemMatch: {'_id': job_id}}
+  //  },
+    function(err, doc){
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(doc);
+      }
+  })
+});
+
+// --- edit Note
+router.put('/api/job/note/edit', function( req, res ) {}),
+
+// --- delete Note
+router.put('/api/job/note/delete', function( req, res ) {
+  var Jobs_id = req.body.Jobs_id;
+  var Jobs_Notes_id = req.body.Jobs_Notes_id;
+
+   User.update({'username': 'George', 'Jobs._id': Jobs_id},{$pull:
+     {'Jobs.$.Notes':{
+          '_id': Jobs_Notes_id
+          }}},{new:true}).exec(function(err, doc){
+            if (err){
+              console.log(err);
+              } else {
+                res.send(doc);
+              }
+          })
+}),
 
 module.exports = router;
