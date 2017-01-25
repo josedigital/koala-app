@@ -101,21 +101,6 @@ router.get('/api/user/check/:username', function(req, res, next) {
     else {
       res.json({user: 'no user'});
     }
-      // return done(null, user);
-    // else {
-    //   var newUser = new User();
-    //   newUser.id = profile.id;
-    //   newUser.token = accessToken;
-    //   newUser.username = profile.displayName;
-    //   newUser.email = profile.emails[0].value;
-
-    //   newUser.save(function (err) {
-    //     if (err)
-    //       throw err;
-    //     res.json({newUser});
-    //     // return done(null, newUser);
-    //   });
-    // }
   });
 
 });
