@@ -16,7 +16,7 @@ export default class AuthService {
       //   primaryColor: "#b81b1c"
       // },
       languageDictionary: {
-        title: 'React Redux Auth0 Kit'
+        title: 'Koala App'
       }
     })
     // binds login functions to keep this context
