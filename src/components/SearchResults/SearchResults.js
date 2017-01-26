@@ -26,8 +26,7 @@ class SearchResults extends Component {
         return (
 
              <div>
-                {this.state.searchResults.map((result, i) => <ListItem key={i} btnText={"Save Job"} result={result}user={this.props.profile.email} />)}
-                
+                {this.state.searchResults.map((result, i) => <ListItem key={i} btnText={"Save Job"} result={result} />)}
              </div>    
 
         )
