@@ -22,8 +22,10 @@ export const jobHelpers = {
 
   saveApiJob: (/*will require the same data as saveJob*/) => {},//this function and createjob might be able to be the same
 
-  saveJob: (newTitle, newUrl, newSummary, newLocation)=>{ 
+  saveJob: (user, newTitle, newUrl, newLocation, newSummary)=>{
+    // console.log(user + newTitle + newLocation+newUrl) good to go
     return axios.post('/api/job/save', { 
+      user: user,
       title: newTitle,
       url: newUrl,
       summary: newSummary,

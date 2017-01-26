@@ -67,7 +67,7 @@ class NoteEdit extends React.Component {
   }
 
   handleSubmitDelete(e){
-    // e.preventDefault()
+    e.preventDefault()
     noteHelpers.deleteNote(this.state.jobId, this.state.noteId).then(function(){
       console.log("jobId & noteId sent into db for deletion")
     }.bind(this));
