@@ -1,6 +1,7 @@
 import React from 'react'
 import { HeaderContainer } from '../../containers'
-import { checkUser, createUser } from '../../utils/helpers'
+import { SearchResults } from '../index'
+import { checkUser, createUser, isEmpty } from '../../utils/helpers'
 import './App.css'
 
 class App extends React.Component {
@@ -10,13 +11,14 @@ class App extends React.Component {
   }
 
   componentDidMount () {
-    console.log(this.props.profile)
-    checkUser(this.props.profile.nickname)
-      .then(({data}) => {
-        if (typeof data.user === 'string')
-          createUser(this.props.profile)
-            .then(data => console.log(data))
-      })
+    if (!isEmpty(this.props.profile)) {
+      checkUser(this.props.profile.nickname)
+        .then(({data}) => {
+          if (typeof data.user === 'string')
+            createUser(this.props.profile)
+              .then(data => console.log(data))
+        })
+    }
   }
   
 
@@ -26,7 +28,7 @@ class App extends React.Component {
       <div className="container">
         <HeaderContainer />
         {
-          this.props.isAuthenticated ? childrenWithProps : 'no dice'
+          this.props.isAuthenticated ? childrenWithProps : <SearchResults />
         }
         
       </div>

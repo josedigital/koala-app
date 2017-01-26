@@ -5,18 +5,27 @@ import {jobHelpers} from '../../utils/helpers'
 export default class ListItem extends Component {
 constructor(props) {
 		super(props)
-			this.state = {}
+			this.state = {
+				message: ''
+			}
 
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	handleSubmit(e){
 		e.preventDefault()
-		jobHelpers.saveJob(this.props.user, this.props.result.title, this.props.result.url, this.props.result.location)//missing this.state.summary from api call
-      	.then(function (response) {
-        console.log("4 prop values sent to DB through saveJob helper")
-		console.log(response.data)
-		  }.bind(this))
+		if (this.props.profile) {
+			jobHelpers.saveJob(this.props.user, this.props.result.title, this.props.result.url, this.props.result.location)//missing this.state.summary from api call
+				.then(function (response) {
+					console.log("4 prop values sent to DB through saveJob helper")
+					console.log(response.data)
+				}.bind(this))
+		} else {
+			console.log('you have to be logged in')
+			this.setState({
+				message: 'You have to login to save jobs'
+			})
+		}
 	}
 		
 
@@ -31,6 +40,8 @@ constructor(props) {
 						 <br />
 						 <br />
 						 <button type='submit'>Save Job</button>
+						 <br/>
+						 {this.state.message}
 						 
 						 {/*<a className="btn btn-warning" href={`#/ViewListings/${this.props.result.title}`}>{this.props.btnText}</a>*/}
 				</form>
