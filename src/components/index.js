@@ -4,6 +4,7 @@ export Header from './Header/Header'
 export HomePage from './HomePage/HomePage'
 export CustomJob from './CustomJob/CustomJob'
 export JobLister from './JobLister/JobLister'
+export SearchResults from './SearchResults/SearchResults'
 export NotFoundPage from './NotFoundPage/NotFoundPage'
 
 export Note from './Note/Note'
