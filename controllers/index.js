@@ -17,21 +17,20 @@ router.delete('/api/user/delete', function( req, res ) {});
 // ----------------- JOBS --------------------------------
 //- save job
 router.post('/api/job/save', function( req, res ) {
-  var cleanTitle = req.body.title.replace(/ /g, '');
-	var cleanUrl = req.body.url.toLowerCase();
-	cleanUrl = cleanUrl.replace(/ /g, '');
-  //Not Making the summary go to lower case or removing spaces
-  var rawSummary = req.body.summary;
-  var cleanLocation = req.body.location.replace(/ /g, '');
-
-  User.findOneAndUpdate({'username': "andy"},{
+  var user = req.body.user
+  var title = req.body.title
+	var link = req.body.url
+  var summary = req.body.summary
+  var location = req.body.location
+  console.log(user)
+  User.findOneAndUpdate({'email': user},{
     $push:
       { 'Jobs': 
         {
-          title: cleanTitle,
-          url: cleanUrl,
-          summary: rawSummary,
-          location: cleanLocation}
+          title: title,
+          url: link,
+          summary: summary,
+          location: location}
         }
       },
       {new: true }
