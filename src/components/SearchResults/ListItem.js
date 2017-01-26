@@ -12,11 +12,14 @@ constructor(props) {
 
 	handleSubmit(e){
 		e.preventDefault()
-		jobHelpers.saveJob(this.props.user, this.props.result.title, this.props.result.url, this.props.result.location)//missing this.state.summary from api call
-      	.then(function (response) {
-        console.log("4 prop values sent to DB through saveJob helper")
-		console.log(response.data)
-		  }.bind(this))
+		//check if user is logged in, if not don't let them save
+		if(this.props.user.length > 5){
+			jobHelpers.saveJob(this.props.user, this.props.result.title, this.props.result.url, this.props.result.location)//missing this.state.summary from api call
+			.then(function (response) {
+			console.log("4 prop values sent to DB through saveJob helper")
+			console.log(response.data)
+			}.bind(this))
+		}else{alert('Have to be logged in to save jobs')}
 	}
 		
 
@@ -34,6 +37,7 @@ constructor(props) {
 						 
 						 {/*<a className="btn btn-warning" href={`#/ViewListings/${this.props.result.title}`}>{this.props.btnText}</a>*/}
 				</form>
+				
 			</div>			
 		);
 	}
