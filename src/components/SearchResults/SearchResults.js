@@ -13,7 +13,7 @@ class SearchResults extends Component {
     }
 
     componentWillMount() {
-        // console.log('willMount')
+        console.log(this.props.profile)
         jobsApi().then(function(response) {
            this.setState({searchResults: response.data})
             console.log(this.state.searchResults);
@@ -23,10 +23,11 @@ class SearchResults extends Component {
 
     render() {
         console.log("Inside Search Results Page");
+        const profile = (this.props.profile) ? this.props.profile : ''
         return (
 
              <div>
-                {this.state.searchResults.map((result, i) => <ListItem key={i} btnText={"Save Job"} result={result} />)}
+                {this.state.searchResults.map((result, i) => <ListItem key={i} btnText={"Save Job"} result={result} profile={profile} />)}
              </div>    
 
         )
