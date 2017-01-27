@@ -78,7 +78,7 @@ class NoteEdit extends React.Component {
   }
 
   handleEditNote(jobNote, noteId, noteCategory){
-      console.log("info back from child")
+      console.log(jobNote, noteId, noteCategory+'---back from child')
     // noteHelpers.saveNote(this.state.jobId, this.state.noteCategory, this.state.jobNote).then(function(){
     //     console.log("jobId & jobNote sent into db")
     // }.bind(this));
@@ -119,9 +119,9 @@ class NoteEdit extends React.Component {
 
             <p>psuedo code for "edit" life cycle</p>
             <p>db Get user/job/notes -> save what is returned to state -> rendor to DOM notes in an editable format -> make changes to note -> db Update user/job/note -> (?)db Get user/job/note -> save what is returned to state -> rendor to DOM "new" notes in an editable format => start cycle over again </p>
-            <ol>
+            
               {this.state.selectedJob.map ((note, idx) => <EditableChild handleEditNote={this.handleEditNote} key={idx} note={note} />)}
-            </ol>
+            
 
         </div>
 

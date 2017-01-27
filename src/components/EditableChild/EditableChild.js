@@ -12,28 +12,42 @@ class EditableChild extends Component {
                 }
 
         this.handleEdit = this.handleEdit.bind(this)
+        this.handleSubmitNote = this.handleSubmitNote.bind(this)
+        this.componentDidMount = this.componentDidMount.bind(this)
     
   }
-
+  //not using this right now until I find the problem
   handleEdit (e){
+      e.preventDefault()
       this.setState({
           jobNote: e.target.value,
           noteId: this.props.note._id,
           noteCategory: this.props.note.category
       })
+      console.log(this.state.jobNote)//empty
+      this.handleSubmitNote()
   }
 
-   //this is the problem here, this prop is only available in the <li> --i think??
-//   handleSubmitNote(e){
-//       e.preventDefault()
-//       this.props.handleEditNote(this.state.jobNote, this.state.noteId, this.state.noteCategory)
-     
-//   }
+
+  handleSubmitNote(){
+      this.props.handleEditNote(
+          this.state.jobNote
+          )
+  }
+
+  componentDidMount(){
+      console.log(this.props.note._id)//note showing up
+      this.setState({
+          jobNote: this.props.note.noteText,
+          noteId: this.props.note._id,
+          noteCategory: this.props.note.category
+      })
+  }
 
   render () {
     return (
-      <li>
-        <form onSubmit={this.handleSubmitNote}>
+      <div>
+        <form onSubmit={this.handleEdit}>
             <textarea
                 defaultValue={this.props.note.noteText}
                 label='Create or Edit a note'
@@ -45,9 +59,11 @@ class EditableChild extends Component {
         <p>{this.props.note.category}</p>
         
         <hr />
-    </li>
+    </div>
     )
   }
 }
 
 export default EditableChild
+
+// took out of textarea NO WORK defaultValue={this.state.jobNote}
