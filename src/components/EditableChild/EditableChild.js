@@ -5,7 +5,7 @@ class EditableChild extends Component {
         super(props)
             this.state = {
                 jobId:'',
-                jobNote: '',
+                jobNote: 'GEORGE',
                 noteId:'',
                 noteCategory: '',
                 jobIdforNote: ''
@@ -31,7 +31,9 @@ class EditableChild extends Component {
 
   handleSubmitNote(){
       this.props.handleEditNote(
-          this.state.jobNote
+          this.state.jobNote,
+          this.state.noteId,
+          this.state.noteCategory
           )
   }
 
