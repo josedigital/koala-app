@@ -51,6 +51,8 @@ if (isDeveloping) {
   });
 
   //--------------------- MONGOOSE
+  // mongoose.Promise = global.Promise;
+  //added 1-27-17 to avoid the promise message in bash, gr
   mongoose.connect('mongodb://localhost/koala');
   var db = mongoose.connection;
   db.on("error", function(err){

@@ -15,6 +15,7 @@ const Job = new mongoose.Schema({
     location: String,
     isHot: Boolean,
     status: String,
+    company: String,
     Notes:[
         {
         category: {

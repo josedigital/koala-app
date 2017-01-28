@@ -27,7 +27,8 @@
     "clean": "rimraf dist",
     "prebuild": "npm run clean",
     "build": "webpack --config ./webpack.production.config.js --progress --profile --colors",
-    "eslint": "eslint ."
+    "eslint": "eslint .",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "auth0-lock": "^10.4.0",
