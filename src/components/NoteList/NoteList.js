@@ -15,9 +15,10 @@ class NoteList extends React.Component {
       jobNote: '',
       noteId:'',
       noteCategory: '',
-      jobIdforNote: '5883bcf07270048fdcd1dd00',
+      jobIdforNote: '588bd9bdde0abdb04a60e2c2',
       jobsArray: [],
-      selectedJob: []
+      selectedJob: [],
+      currentNoteValue: "This is the current note value"
     }
 
      this.handleJobId = this.handleJobId.bind(this)
@@ -26,6 +27,10 @@ class NoteList extends React.Component {
      this.handleCategory = this.handleCategory.bind(this)
      this.handleSubmitNote = this.handleSubmitNote.bind(this)
      this.handleSubmitDelete = this.handleSubmitDelete.bind(this)
+     this.handleEditNote = this.handleEditNote.bind(this)
+     this.handleSubmitEditedNote = this.handleSubmitEditedNote.bind(this)
+    
+
     
   }
   handleJobId (e) {
@@ -52,22 +57,31 @@ class NoteList extends React.Component {
     })
   }
 
+  handleEditNote (e) {
+    this.setState({
+      currentNoteValue: e.target.value
+    })
+  }
+
   handleSubmitNote(e){
     e.preventDefault()
-    noteHelpers.saveNote(this.state.jobId, this.state.noteCategory, this.state.jobNote).then(function(){
-      console.log("jobId & jobNote sent into db")
+    let currentUser = this.props.profile.email
+    noteHelpers.saveNote(currentUser,this.state.jobId, this.state.noteCategory, this.state.jobNote).then(function(response){
+      console.log(response.data)
+      console.log("jobId, NoteCategory & jobNote sent into db")
     }.bind(this));
-    this.setState({
-      jobId: '',
-      jobNote: '',
-      noteCategory: ''
+    // this.setState({
+    //   jobId: '',
+    //   jobNote: '',
+    //   noteCategory: ''
       
-    })
+    // })
   }
 
   handleSubmitDelete(e){
     e.preventDefault()
-    noteHelpers.deleteNote(this.state.jobId, this.state.noteId).then(function(){
+    let currentUser = this.props.profile.email
+    noteHelpers.deleteNote(currentUser, this.state.jobId, this.state.noteId).then(function(){
       console.log("jobId & noteId sent into db for deletion")
     }.bind(this));
     this.setState({
@@ -76,8 +90,25 @@ class NoteList extends React.Component {
     })
   }
 
+  handleSubmitEditedNote(e){
+    e.preventDefault()
+    let currentUser = this.props.profile.email
+    let georgeJobId = '588d04873a136af32247aa73'
+    let georgeNoteId = '588cede7f3de59eb6da2ec6a'
+    let editedCategory = 'Interview Questions'
+    let currentNoteValue = this.state.currentNoteValue
+    noteHelpers.editNote(currentUser, georgeJobId, georgeNoteId, currentNoteValue, editedCategory).then(function(response){
+      console.log("note updated for jobId=588d04873a136af32247aa73 & noteId 588c3ee0b8b731cfdea8d156")
+      console.log(response.data)
+    }.bind(this));
+    // this.setState({
+    // currentNoteValue: ""
+    // })
+  }
+
   componentDidMount() {
     noteHelpers.getNotes(this.state.jobIdforNote).then(function(response) {
+      // console.log(response.data)
       console.log(response.data[0].Jobs[0]._id)
     if (response.data[0].Jobs !== this.state.jobsArray) {
         this.setState({
@@ -101,7 +132,7 @@ class NoteList extends React.Component {
       
         <div className="container list">
 
-            <h3>Notes for Andy's first Job, 5883bcf07270048fdcd1dd00</h3>
+            <h3>Notes for users job</h3>
             <ol>
               {this.state.selectedJob.map ((note, idx) => <Note key={idx} note={note} />)}
             </ol>
@@ -161,10 +192,30 @@ class NoteList extends React.Component {
               <button type="submit">
                 Delete Note
               </button>
+            </form>
+            <hr />
+            <h1>Update the value of a Note </h1>
+            <p>User = Current User</p>
+            <p>JobId = hard coded job.id from George's DB for testing</p>
+            <p>NoteId = hard coded note.id from George's DB for testing</p>
+            <p>Current note value = {this.state.currentNoteValue}</p>
+            <form onSubmit={this.handleSubmitEditedNote}>
+              <TextArea
+                label='Edit this note text'
+                inputType='text'
+                name='currentNoteValue'
+                onChange={this.handleEditNote}
+                controlFunction={this.handleEditNote}
+                content={this.state.currentNoteValue}
+                placeholder={this.state.currentNoteValue} />
+
+              <button type="submit">
+                Edit Note
+              </button>
+
 
             </form>
-
-
+            
         </div>
 
     )
@@ -172,3 +223,4 @@ class NoteList extends React.Component {
 }
 
 export default NoteList
+

@@ -66,8 +66,10 @@ export const jobHelpers = {
 
 export const noteHelpers = {
 
-  saveNote: (jobId, noteCategory, jobNote) => {
+  saveNote: (userEmail, jobId, noteCategory, jobNote) => {
+     console.log(userEmail, jobId, noteCategory, jobNote)// good
     return axios.post('/api/job/note/save', {
+      user: userEmail,
       Jobs_id: jobId,
       Jobs_Notes_Category: noteCategory,
       Jobs_Notes_NoteText: jobNote
@@ -81,16 +83,19 @@ export const noteHelpers = {
     })
   },
 
-  editNote: (jobId, noteCategory, noteId) => {
+  editNote: (user, jobId, noteId, currentNoteValue, editedCategory) => {
     return axios.put('/api/job/note/edit', {
-      Jobs_id: jobId,
-      // Jobs_Notes_Category: noteCategory,
-      Jobs_Notes_id: noteId
+      'user':user,
+      'jobId': jobId,
+      'noteId': noteId,
+      'currentNoteValue': currentNoteValue,
+      'category': editedCategory
     })
   },
 
-  deleteNote: (jobId, noteId) => {
+  deleteNote: (currentUser, jobId, noteId) => {
     return axios.put('/api/job/note/delete', {
+      user: currentUser,
       Jobs_id: jobId,
       Jobs_Notes_id: noteId
     })

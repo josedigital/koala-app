@@ -133,8 +133,9 @@ router.post('/api/job/note/save', function( req, res ) {
   var Jobs_id = req.body.Jobs_id;
   var Jobs_Notes_Category = req.body.Jobs_Notes_Category;
   var Jobs_Notes_NoteText = req.body.Jobs_Notes_NoteText;
-
-    User.update({'username': 'George', 'Jobs._id': Jobs_id},{$push:
+  var userEmail = req.body.user
+  console.log(Jobs_Notes_NoteText)
+    User.update({'email': userEmail, 'Jobs._id': Jobs_id},{$push:
       {'Jobs.$.Notes':{
           'category': Jobs_Notes_Category,
           'noteText': Jobs_Notes_NoteText
@@ -152,30 +153,61 @@ router.post('/api/job/note/save', function( req, res ) {
 router.get('/api/job/notes', function( req, res ) {
 var job_id = req.body.job_id
 	User.find(
-  { 'username': 'andy', 'Jobs.$._id': job_id }).exec(
-    // { 'username': 'andy', 'Jobs._id': job_id },
-  // User.findOne( 
-  //     {'username': "andy",  'Jobs':  
-  //         { $elemMatch: {'_id': job_id}}
-  //  },
+  { 'username': 'george.ramirez2', 'Jobs.$._id': job_id }).exec(
+    
     function(err, doc){
       if (err) {
         console.log(err);
       } else {
-        res.json(doc);
+        res.send(doc);
       }
   })
 });
 
 // --- edit Note
-router.put('/api/job/note/edit', function( req, res ) {}),
+router.put('/api/job/note/edit', function( req, res ) {
+  var user = req.body.user
+  var jobId = req.body.jobId
+  var noteId = req.body.noteId
+  var newNote = req.body.currentNoteValue
+  var categoryEdit = req.body.category
+  //console.log("controler = "+user, jobId, noteId, newNote, categoryEdit)//working
+  //**************************************************** */
+ User.update(
+    {
+        'email' : user, 
+        'Jobs._id': jobId,
+        // 'Jobs.Notes._id': noteId //added new
+    }, 
+    //{$set: {'Jobs.$.Notes': {noteText: newNote}}})//original
+    {$set: {'Jobs.$.Notes': {
+      'noteText': newNote, 
+      'category': categoryEdit
+    }
+   }
+})
+
+
+  // User.update(
+  //   {'email': user, 'Jobs._id': jobId, 'Notes._id': noteId},
+  //     {$set: { noteText: newNote}})
+
+.exec(function(err, doc){
+            if (err) {
+              console.log(err);
+            } else {
+              res.send(doc);
+            }
+        })
+}),
 
 // --- delete Note
 router.put('/api/job/note/delete', function( req, res ) {
   var Jobs_id = req.body.Jobs_id;
   var Jobs_Notes_id = req.body.Jobs_Notes_id;
+  var user = req.body.user
 
-   User.update({'username': 'George', 'Jobs._id': Jobs_id},{$pull:
+   User.update({'email': user, 'Jobs._id': Jobs_id},{$pull:
      {'Jobs.$.Notes':{
           '_id': Jobs_Notes_id
           }}},{new:true}).exec(function(err, doc){
