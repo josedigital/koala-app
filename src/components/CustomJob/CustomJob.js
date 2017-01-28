@@ -56,8 +56,10 @@ class CustomJob extends React.Component {
 
   
   componentWillMount () {
-    console.log('willMount')
-    jobHelpers.getJobs().then(function(response) {
+    var userEmail = this.props.profile.email
+    console.log('#60 customjob userEmail='+userEmail)//good
+    jobHelpers.getJobs(userEmail).then(function(response) {
+      console.log(response.data)
       if (response.data.Jobs !== this.state.jobList) {
         this.setState({
           jobList:response.data.Jobs
@@ -71,7 +73,7 @@ class CustomJob extends React.Component {
   render () {
     return (
       <div className="container home">
-        <h2>All of {this.props.profile.nickname} Andy's Jobs</h2>
+        <h2>All of {this.props.profile.nickname} Jobs</h2>
         <ol>
          {this.state.jobList.map ((job, idx) =>  <JobLister key={idx} job={job} /> )}
         </ol>

@@ -15,9 +15,9 @@ constructor(props) {
 	handleSubmit(e){
 		e.preventDefault()
 		if (this.props.profile) {
-			jobHelpers.saveJob(this.props.profile.email, this.props.result.title, this.props.result.url, this.props.result.location)//missing this.state.summary from api call
+			jobHelpers.saveJob(this.props.profile.email, this.props.result.title, this.props.result.company, this.props.result.url, this.props.result.location)//missing this.state.summary from api call
 				.then(function (response) {
-					console.log("4 prop values sent to DB through saveJob helper")
+					console.log("5 prop values sent to DB through saveJob helper")
 					console.log(response.data)
 				}.bind(this))
 		} else {

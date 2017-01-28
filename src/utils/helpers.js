@@ -22,19 +22,23 @@ export const jobHelpers = {
 
   saveApiJob: (/*will require the same data as saveJob*/) => {},//this function and createjob might be able to be the same
 
-  saveJob: (user, newTitle, newUrl, newLocation, newSummary)=>{
-    // console.log(user + newTitle + newLocation+newUrl) good to go
+  saveJob: (user, newTitle, newCompany, newUrl, newLocation, newSummary)=>{
+    // console.log(newCompany+"save job in helper")
     return axios.post('/api/job/save', { 
       user: user,
       title: newTitle,
+      company: newCompany,
       url: newUrl,
       summary: newSummary,
       location: newLocation 
     })
   },
 
-  getJobs: () => {
-    return axios.get('/api/jobs',)
+  getJobs: (userEmail) => {
+    console.log('#38 helpers userEmail='+userEmail)//good
+    return axios.get('/api/all/jobs/'+ userEmail
+    // , { userEmail: userEmail }
+    )
   },
     
   //this will require a job _id - built on a guess for now

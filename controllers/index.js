@@ -19,10 +19,11 @@ router.delete('/api/user/delete', function( req, res ) {});
 router.post('/api/job/save', function( req, res ) {
   var user = req.body.user
   var title = req.body.title
+  var company = req.body.company
 	var link = req.body.url
   var summary = req.body.summary
   var location = req.body.location
-  console.log(user)
+  //console.log(company)
   User.findOneAndUpdate({'email': user},{
     $push:
       { 'Jobs': 
@@ -30,7 +31,8 @@ router.post('/api/job/save', function( req, res ) {
           title: title,
           url: link,
           summary: summary,
-          location: location}
+          location: location,
+          company: company}
         }
       },
       {new: true }
@@ -46,15 +48,17 @@ router.post('/api/job/save', function( req, res ) {
   });
 
 //- get Jobs
-router.get('/api/jobs', function( req, res ) {
+router.get('/api/all/jobs/:userEmail', function( req, res ) {
+  var userEmail = req.params.userEmail;
+console.log("#53Controler req.body = " + req.body.userEmail)
 	User.findOne(
-    { 'username': "andy" }, 
-    {Jobs: 1}, function(err, doc){
+    { 'email': userEmail}, 
+  {Jobs: 1}).exec(function(err, doc){
       if (err) {
         console.log(err);
-        res.json({error:err})
+        res.send({error:err})
       } else {
-        res.json(doc); //resulting json sent back to front
+        res.send(doc); // was res.json before I added the .exec promise
       }
   });
 });
