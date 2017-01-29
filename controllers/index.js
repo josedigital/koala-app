@@ -176,24 +176,47 @@ router.put('/api/job/note/edit', function( req, res ) {
  User.update(
     {
         'email' : user, 
-        'Jobs._id': jobId,
-        // 'Jobs.Notes._id': noteId //added new
+        // 'Jobs._id': jobId,//CAN DELETE
+        //'Jobs.0.Notes._id': noteId //added new//CAN DELETE
     }, 
-    //{$set: {'Jobs.$.Notes': {noteText: newNote}}})//original
-    {$set: {'Jobs.$.Notes': {
+                 //{$set: {'Jobs.$.Notes': {noteText: newNote}}})//original
+    {$set: {'Jobs.0.Notes.0': {//If this works I need to pass in the index
       'noteText': newNote, 
       'category': categoryEdit
     }
    }
-})
+}
 
+//DELETE ALL BELOW
 
   // User.update(
   //   {'email': user, 'Jobs._id': jobId, 'Notes._id': noteId},
   //     {$set: { noteText: newNote}})
 
-.exec(function(err, doc){
-            if (err) {
+// .exec(function(err, doc){
+//             if (err) {
+//               console.log(err);
+//             } else {
+//               res.send(doc);
+//             }
+//         })
+// }),
+//--------------------------
+// User.update(
+//     // {
+//     //     "email" : user, 
+//     //     "Jobs[0].Notes._id": noteId
+//     // }, 
+//     // {
+//     //     "$set": { 
+//     //         "Jobs.0.Notes.$.category": categoryEdit,
+//     //         "Jobs.0.Notes.$.noteText": newNote
+//     //     }
+//     // }
+//  { "email" : user, "Jobs.Notes" : {$elemMatch: {"_id" : noteId}}}, {$set: { 'Jobs.0.Notes.0.noteText': newNote, 'Jobs.0.Notes.0.category': categoryEdit}}
+//  END OF DELETE 
+).exec(function(err, doc){
+             if (err) {
               console.log(err);
             } else {
               res.send(doc);
