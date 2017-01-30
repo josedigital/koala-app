@@ -15,8 +15,8 @@ class NoteEdit extends React.Component {
       jobNote: '',
       noteId:'',
       noteCategory: '',
-      jobIdforNote: '5883bcf07270048fdcd1dd00',
-      jobsArray: [],
+      jobIdforNote: '588ecd252169472b97142d5f',
+      notes: [],
       selectedJob: []
     }
 
@@ -91,23 +91,18 @@ class NoteEdit extends React.Component {
   }
 
   componentDidMount() {
+    let currentUser = this.props.profile.email
     noteHelpers.getNotes(this.state.jobIdforNote).then(function(response) {
-      console.log(response.data[0].Jobs[0]._id)
-    if (response.data[0].Jobs !== this.state.jobsArray) {
+      //console.log(response.data.Notes)//good
+     
+    if (response.data.Notes !== this.state.notes) {
         this.setState({
-          jobsArray:response.data[0].Jobs
+          notes:response.data.Notes
         })
-        console.log(this.state.jobsArray)
-        for(var i =0; i<this.state.jobsArray.length; i++){
-           if ( this.state.jobsArray[i]._id === this.state.jobIdforNote){
-            this.setState({
-              selectedJob: this.state.jobsArray[i].Notes
-            })
-          }
-        }
+        //console.log(this.state.notes)//good
       }
-      console.log(this.state.selectedJob)
     }.bind(this));
+
   }
 
   render () {
@@ -115,12 +110,12 @@ class NoteEdit extends React.Component {
       
         <div className="container list">
 
-            <h3>Can we edit notes for Andy's first Job?, 5883bcf07270048fdcd1dd00</h3>
+            <h3>List of notes, these based on George's job, make it your own by pasting a job._id in noteEdit.js line 18</h3>
 
             <p>psuedo code for "edit" life cycle</p>
             <p>db Get user/job/notes -> save what is returned to state -> rendor to DOM notes in an editable format -> make changes to note -> db Update user/job/note -> (?)db Get user/job/note -> save what is returned to state -> rendor to DOM "new" notes in an editable format => start cycle over again </p>
             
-              {this.state.selectedJob.map ((note, idx) => <EditableChild handleEditNote={this.handleEditNote} key={idx} note={note} />)}
+              {this.state.notes.map ((note, idx) => <EditableChild handleEditNote={this.handleEditNote} key={idx} note={note} />)}
             
 
         </div>

@@ -17,14 +17,14 @@ class JobLister extends Component {
         <a href={this.props.job.url} target="_blank" value={this.props.job.url}>Job Description</a>
 
         {/*<p>{this.props.job.summary}</p>*/}
-        
-        <p>Is this job hot?{this.props.job.isHot}</p>
-        <p>Status{this.props.job.status}</p>
-        <p>Job._id{this.props.job._id}</p>
-        <p>hot button</p>
-        <p>delete button</p>
-        <p>edit button</p>
-        <p>status button??</p>
+        <p>--</p>
+        <p>Is this job hot = this defaults to false</p>
+        <p>Status = defaults to {this.props.job.status}</p>
+        <p>Job._id = {this.props.job._id}</p>
+        <p>need a "make hot"" button</p>
+        <p>need a "delete button"</p>
+        <p>need a "edit button"</p>
+        <p>need a "status drop down"</p>
         <hr />
       </div>
     

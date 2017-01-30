@@ -30,7 +30,8 @@ class CustomJob extends React.Component {
 
   handleSubmit(e){
 		e.preventDefault()
-		jobHelpers.saveJob(this.state.title, this.state.url, this.state.summary, this.state.location)
+    var userEmail = this.props.profile.email
+		jobHelpers.saveJob(userEmail, this.state.title, this.state.url, this.state.summary, this.state.location)
       .then(function () {
         console.log("4 state values sent to DB through saveJob helper")
 		  }.bind(this));
@@ -44,10 +45,13 @@ class CustomJob extends React.Component {
     //-- TO TEST DELETE FUNCTION --
     handleDelete(e){
 		e.preventDefault()
-		jobHelpers.deleteJob(this.state.job_id)
+    var userEmail = this.props.profile.email
+    //console.log('***'+userEmail, this.state.job_id)//good
+		jobHelpers.deleteJob(userEmail, this.state.job_id)
       .then(function(data){
-        console.log("job_id sent to db for DELETION")
-        console.log(data)
+        console.log("job_id for USER sent to db for DELETION")
+        console.log(data.data)
+        this.componentWillMount()
 		}.bind(this));
 		this.setState({
 			job_id: []       
@@ -57,14 +61,14 @@ class CustomJob extends React.Component {
   
   componentWillMount () {
     var userEmail = this.props.profile.email
-    console.log('#60 customjob userEmail='+userEmail)//good
+    //console.log('#60 customjob userEmail='+userEmail)//good
     jobHelpers.getJobs(userEmail).then(function(response) {
-      console.log(response.data)
+      //console.log(response.data.Jobs)
       if (response.data.Jobs !== this.state.jobList) {
         this.setState({
           jobList:response.data.Jobs
         })
-        console.log(this.state.jobList)
+        console.log('this array is being mapped',this.state.jobList)
       }
     }.bind(this));
   }
@@ -73,13 +77,13 @@ class CustomJob extends React.Component {
   render () {
     return (
       <div className="container home">
-        <h2>All of {this.props.profile.nickname} Jobs</h2>
+        <h2>All of {this.props.profile.nickname}'s Jobs</h2>
         <ol>
          {this.state.jobList.map ((job, idx) =>  <JobLister key={idx} job={job} /> )}
         </ol>
 
         
-        <h2>Add a custom Job to Andy's list</h2>
+        <h2>Add a custom Job to {this.props.profile.nickname}'s list</h2>
 
         <form onSubmit={ this.handleSubmit }>
       
@@ -141,7 +145,7 @@ class CustomJob extends React.Component {
         
         {/*can delete below this, only for testing*/}
         <hr />
-        <h2>Delete a Job from Andy's list</h2>
+        <h2>Delete a Job from {this.props.profile.nickname}'s list</h2>
 
         <form onSubmit={ this.handleDelete }>
           {/* Location field */}

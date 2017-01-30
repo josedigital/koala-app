@@ -7,8 +7,11 @@ const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
 const mongoose = require('mongoose');
+const Promise = require('bluebird');//gr
 const fs = require('fs');
 const bodyParser = require('body-parser');
+
+mongoose.Promise = Promise;
 
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
@@ -51,9 +54,8 @@ if (isDeveloping) {
   });
 
   //--------------------- MONGOOSE
-  // mongoose.Promise = global.Promise;
-  //added 1-27-17 to avoid the promise message in bash, gr
-  mongoose.connect('mongodb://localhost/koala');
+  
+  mongoose.connect('mongodb://localhost/koalaV2');
   var db = mongoose.connection;
   db.on("error", function(err){
       console.log("Mongoose connection error", err);

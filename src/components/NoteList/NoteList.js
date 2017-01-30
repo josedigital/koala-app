@@ -16,8 +16,8 @@ class NoteList extends React.Component {
       jobNote: '',
       noteId:'',
       noteCategory: '',
-      jobIdforNote: '588bd9bdde0abdb04a60e2c2',
-      jobsArray: [],
+      jobIdforNote: '588ecd252169472b97142d5f',
+      notes: [],
       selectedJob: [],
       currentNoteValue: "I need to edit this on the fly which is {this.state.currentNoteValue}"
     }
@@ -30,6 +30,7 @@ class NoteList extends React.Component {
      this.handleSubmitDelete = this.handleSubmitDelete.bind(this)
      this.handleEditNote = this.handleEditNote.bind(this)
      this.handleSubmitEditedNote = this.handleSubmitEditedNote.bind(this)
+     this.handleSubmitGetNotes = this.handleSubmitGetNotes.bind(this)
     
 
     
@@ -71,19 +72,20 @@ class NoteList extends React.Component {
       console.log(response.data)
       console.log("jobId, NoteCategory & jobNote sent into db")
     }.bind(this));
-    // this.setState({
-    //   jobId: '',
-    //   jobNote: '',
-    //   noteCategory: ''
+    this.setState({
+      jobId: '',
+      jobNote: '',
+      noteCategory: ''
       
-    // })
+    })
   }
 
   handleSubmitDelete(e){
     e.preventDefault()
     let currentUser = this.props.profile.email
-    noteHelpers.deleteNote(currentUser, this.state.jobId, this.state.noteId).then(function(){
+    noteHelpers.deleteNote(currentUser, this.state.jobId, this.state.noteId).then(function(data){
       console.log("jobId & noteId sent into db for deletion")
+      console.log(data.data)
     }.bind(this));
     this.setState({
       jobId: '',
@@ -93,55 +95,65 @@ class NoteList extends React.Component {
 
   handleSubmitEditedNote(e){
     e.preventDefault()
-    let currentUser = this.props.profile.email
-    let georgeJobId = '588d04873a136af32247aa73'
-    let georgeNoteId = '588cede7f3de59eb6da2ec6a'
+    //let currentUser = this.props.profile.email
+    //let georgeJobId = '588d04873a136af32247aa73'
+    let georgeNoteId = '588ee0f87efdb733a8d5efcb'
     let editedCategory = 'Interview Questions'
     let currentNoteValue = this.state.currentNoteValue
-    noteHelpers.editNote(currentUser, georgeJobId, georgeNoteId, currentNoteValue, editedCategory).then(function(response){
-      console.log("note updated for jobId=588d04873a136af32247aa73 & noteId 588c3ee0b8b731cfdea8d156")
+    noteHelpers.editNote(georgeNoteId, currentNoteValue, editedCategory).then(function(response){
+      console.log("note updated for noteId 588ee0f87efdb733a8d5efcb")
       console.log(response.data)
     }.bind(this));
-    // this.setState({
-    // currentNoteValue: ""
-    // })
+    this.setState({
+    currentNoteValue: ""
+    })
   }
 
-  componentDidMount() {
-    noteHelpers.getNotes(this.state.jobIdforNote).then(function(response) {
-      // console.log(response.data)
-      console.log(response.data[0].Jobs[0]._id)
-    if (response.data[0].Jobs !== this.state.jobsArray) {
+  handleSubmitGetNotes(e){
+    e.preventDefault()
+    let currentUser = this.props.profile.email
+    noteHelpers.getNotes(this.state.jobId).then(function(response) {
+      //console.log(response.data.Notes)//good
+     
+    if (response.data.Notes !== this.state.notes) {
         this.setState({
-          jobsArray:response.data[0].Jobs
+          notes:response.data.Notes
         })
-        console.log(this.state.jobsArray)
-        for(var i =0; i<this.state.jobsArray.length; i++){
-           if ( this.state.jobsArray[i]._id === this.state.jobIdforNote){
-            this.setState({
-              selectedJob: this.state.jobsArray[i].Notes
-            })
-          }
-        }
+        //console.log(this.state.notes)//good
       }
-      console.log(this.state.selectedJob)
     }.bind(this));
+
   }
+
 
   render () {
     return (
       
         <div className="container list">
 
-            <h3>Notes for users job</h3>
-            <ol>
-              {this.state.selectedJob.map ((note, idx) => <Note key={idx} note={note} />)}
-            </ol>
+            <h1>Search for Note, Enter a job id that has notes</h1>
+            <form onSubmit={ this.handleSubmitGetNotes }>
+              <TextInput 
+                label='Enter a job_id that note belongs to'
+                inputType='text'
+                name='jobId'
+                controlFunction={this.handleJobId}
+                content={this.state.jobId}
+                placeholder='55689900083355' />
+                <button type="submit">
+                Search for Notes
+              </button>
+            </form>
+
+
+            
+              {this.state.notes.map ((note, idx) => <Note key={idx} note={note} />)}
+            
             
 
             
 
-            <h1>Create Note</h1>
+            <h1>Create a Notes for {this.props.profile.nickname}s' Jobs</h1>
 
             <form onSubmit={ this.handleSubmitNote }>
               <TextInput 

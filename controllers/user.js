@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../model/model');
+var User = require('../model/User');
 
 router.get('/api/user/test', function (req, res, next) {
   res.json({you: 'are an idiot'})

@@ -25,21 +25,20 @@ export const jobHelpers = {
   saveJob: (user, newTitle, newCompany, newUrl, newLocation, newSummary)=>{
     // console.log(newCompany+"save job in helper")
     return axios.post('/api/job/save', { 
+      user: user,
       title: newTitle,
+      company: newCompany,
       url: newUrl,
       summary: newSummary,
-      location: newLocation,
-      isHot: false,
-      status: 'new',
-      company: newCompany,
-      user: user
+      location: newLocation 
     })
   },
-  
 
   getJobs: (userEmail) => {
-    //console.log('#38 helpers userEmail='+userEmail)//good
-    return axios.get('/api/all/jobs/'+ userEmail)
+    console.log('#38 helpers userEmail='+userEmail)//good
+    return axios.get('/api/all/jobs/'+ userEmail
+    // , { userEmail: userEmail }
+    )
   },
     
   //this will require a job _id - built on a guess for now
@@ -53,13 +52,13 @@ export const jobHelpers = {
     })
   },
 
-    
-  deleteJob: (user, job_id) => {
-    // console.log('helper', user, job_id)//good
-    return axios.put('/api/job/delete/'+user+'/'+job_id
-   
-    )
-  }
+    //this will require a job _id
+  deleteJob: (job_id) => {
+    console.log('helper', job_id)
+    return axios.put('/api/job/delete',{
+      job_id: job_id
+    })
+  },
 }
 
 
@@ -71,26 +70,26 @@ export const noteHelpers = {
      console.log(userEmail, jobId, noteCategory, jobNote)// good
     return axios.post('/api/job/note/save', {
       user: userEmail,
-      jobId: jobId,
-      category: noteCategory,
-      noteText: jobNote
+      Jobs_id: jobId,
+      Jobs_Notes_Category: noteCategory,
+      Jobs_Notes_NoteText: jobNote
     })
   },
 
     //This job id might not even be necessary because we get back the enire object
   getNotes: (jobId) => {
-    return axios.get('/api/job/notes/'+jobId,
-    // {
-    //   job_id: jobId
-    // }
-    )
+    return axios.get('/api/job/notes',{
+      job_id: jobId
+    })
   },
 
-  editNote: (noteId, currentNoteValue, editedCategory) => {
+  editNote: (user, jobId, noteId, currentNoteValue, editedCategory) => {
     return axios.put('/api/job/note/edit', {
-      'category': editedCategory,
-      'noteText': currentNoteValue,
-      'noteId': noteId
+      'user':user,
+      'jobId': jobId,
+      'noteId': noteId,
+      'currentNoteValue': currentNoteValue,
+      'category': editedCategory
     })
   },
 
