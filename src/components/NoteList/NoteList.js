@@ -6,6 +6,7 @@ import Note from '../Note/Note'
 import TextArea from '../Forms/TextArea'
 import TextInput from '../Forms/TextInput'
 import Select from '../Forms/Select'
+import InlineEdit from './InlineEdit'
 
 class NoteList extends React.Component {
   constructor (props) {
@@ -18,7 +19,7 @@ class NoteList extends React.Component {
       jobIdforNote: '588ecd252169472b97142d5f',
       notes: [],
       selectedJob: [],
-      currentNoteValue: "This is the current note value"
+      currentNoteValue: "I need to edit this on the fly which is {this.state.currentNoteValue}"
     }
 
      this.handleJobId = this.handleJobId.bind(this)
@@ -212,6 +213,8 @@ class NoteList extends React.Component {
             <p>NoteId = hard coded note.id from George's DB for testing</p>
             <p>Current note value = {this.state.currentNoteValue}</p>
             <form onSubmit={this.handleSubmitEditedNote}>
+              <InlineEdit
+                text={this.state.currentNoteValue} />
               <TextArea
                 label='Edit this note text'
                 inputType='text'
