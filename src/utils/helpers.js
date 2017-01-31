@@ -66,7 +66,7 @@ export const jobHelpers = {
 // ----------------- NOTES --------------------------------
 
 export const noteHelpers = {
-
+  // --- SAVE
   saveNote: (userEmail, jobId, noteCategory, jobNote) => {
      console.log(userEmail, jobId, noteCategory, jobNote)// good
     return axios.post('/api/job/note/save', {
@@ -77,15 +77,13 @@ export const noteHelpers = {
     })
   },
 
-    //This job id might not even be necessary because we get back the enire object
+  // --- GET
   getNotes: (jobId) => {
     return axios.get('/api/job/notes/'+jobId,
-    // {
-    //   job_id: jobId
-    // }
     )
   },
 
+  // --- EDIT
   editNote: (noteId, currentNoteValue, editedCategory) => {
     return axios.put('/api/job/note/edit', {
       'category': editedCategory,
@@ -94,8 +92,9 @@ export const noteHelpers = {
     })
   },
 
+  // --- DELETE
   deleteNote: (currentUser, jobId, noteId) => {
-    return axios.put('/api/job/note/delete', {
+    return axios.post('/api/job/note/delete', {
       user: currentUser,
       Jobs_id: jobId,
       Jobs_Notes_id: noteId
