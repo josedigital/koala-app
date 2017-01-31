@@ -5,28 +5,39 @@ class EditableChild extends Component {
         super(props)
             this.state = {
                 jobId:'',
-                jobNote: 'GEORGE',
+                jobNote: '',
                 noteId:'',
                 noteCategory: '',
                 jobIdforNote: ''
                 }
 
-        this.handleEdit = this.handleEdit.bind(this)
+        // this.handleEdit = this.handleEdit.bind(this)
         this.handleSubmitNote = this.handleSubmitNote.bind(this)
         this.componentDidMount = this.componentDidMount.bind(this)
     
   }
-  //not using this right now until I find the problem
-  handleEdit (e){
-      e.preventDefault()
-      this.setState({
-          jobNote: e.target.value,
-          noteId: this.props.note._id,
-          noteCategory: this.props.note.category
-      })
-      console.log(this.state.jobNote)//empty
-      this.handleSubmitNote()
+  handleJobId (e) {
+    this.setState({
+      jobId: e.target.value
+    })
   }
+
+  handleJobNote (e) {
+    this.setState({
+      jobNote: e.target.value
+    })
+  }
+  //not using this right now until I find the problem
+//   handleEdit (e){
+//       e.preventDefault()
+//       this.setState({
+//           jobNote: e.target.value,
+//           noteId: this.props.note._id,
+//           noteCategory: this.props.note.category
+//       })
+//       console.log(this.state.jobNote)//empty
+//       this.handleSubmitNote()
+//   }
 
 
   handleSubmitNote(){

@@ -2,10 +2,11 @@ import React from 'react'
 
 import {noteHelpers} from '../../utils/helpers'
 
-import EditableChild from '../EditableChild/EditableChild'
-import TextArea from '../Forms/TextArea'
-import TextInput from '../Forms/TextInput'
+// import EditableChild from '../EditableChild/EditableChild'
+// import TextArea from '../Forms/TextArea'
+// import TextInput from '../Forms/TextInput'
 import Select from '../Forms/Select'
+import InlineEdit from '../NoteList/InlineEdit'
 
 class NoteEdit extends React.Component {
   constructor (props) {
@@ -15,7 +16,7 @@ class NoteEdit extends React.Component {
       jobNote: '',
       noteId:'',
       noteCategory: '',
-      jobIdforNote: '588ecd252169472b97142d5f',
+      jobIdforNote: '588fee2814aacf02c224a2a8',
       notes: [],
       selectedJob: []
     }
@@ -27,6 +28,7 @@ class NoteEdit extends React.Component {
      this.handleSubmitNote = this.handleSubmitNote.bind(this)
      this.handleSubmitDelete = this.handleSubmitDelete.bind(this)
      this.handleEditNote = this.handleEditNote.bind(this)
+     this.handleSubmitEditedNote = this.handleSubmitEditedNote.bind(this)
     
   }
   handleJobId (e) {
@@ -90,6 +92,22 @@ class NoteEdit extends React.Component {
     // })
   }
 
+  handleSubmitEditedNote(e){
+    e.preventDefault()
+    //let currentUser = this.props.profile.email
+    //let georgeJobId = '588d04873a136af32247aa73'
+    // let georgeNoteId = '588ee0f87efdb733a8d5efcb'
+    // let editedCategory = 'Interview Questions'
+    let currentNoteValue = this.state.currentNoteValue
+    noteHelpers.editNote(this.state.noteId, currentNoteValue, this.props.note.category).then(function(response){
+      console.log("note updated for " + this.state.noteId + " category " + this.props.note.category)
+      console.log(response.data)
+    }.bind(this));
+    this.setState({
+    currentNoteValue: ""
+    })
+  }
+
   componentDidMount() {
     let currentUser = this.props.profile.email
     noteHelpers.getNotes(this.state.jobIdforNote).then(function(response) {
@@ -99,7 +117,7 @@ class NoteEdit extends React.Component {
         this.setState({
           notes:response.data.Notes
         })
-        //console.log(this.state.notes)//good
+        console.log(this.state.notes)//good
       }
     }.bind(this));
 
@@ -115,7 +133,7 @@ class NoteEdit extends React.Component {
             <p>psuedo code for "edit" life cycle</p>
             <p>db Get user/job/notes -> save what is returned to state -> rendor to DOM notes in an editable format -> make changes to note -> db Update user/job/note -> (?)db Get user/job/note -> save what is returned to state -> rendor to DOM "new" notes in an editable format => start cycle over again </p>
             
-              {this.state.notes.map ((note, idx) => <EditableChild handleEditNote={this.handleEditNote} key={idx} note={note} />)}
+              {this.state.notes.map ((note, idx) => <InlineEdit key={idx} note={note} />)}
             
 
         </div>
