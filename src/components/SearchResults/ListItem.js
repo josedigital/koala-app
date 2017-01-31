@@ -32,8 +32,9 @@ constructor(props) {
 
 	render() {
 		return (	
-			<div className="container">
-	       		 <form onSubmit={ this.handleSubmit }>          
+			<div className="container medium center">
+	       		 <form onSubmit={ this.handleSubmit }>    
+					
 						<h4>{this.props.result.title}</h4>
 						 <p>Hiring Company: {this.props.result.company}</p>
 						 <p>{this.props.result.location}</p>
@@ -42,11 +43,10 @@ constructor(props) {
 						 <br />
 						 <button type='submit'>Save Job</button>
 						 <br/>
-						 {this.state.message}
-						 
+						 {this.state.message}						 
 						 {/*<a className="btn btn-warning" href={`#/ViewListings/${this.props.result.title}`}>{this.props.btnText}</a>*/}
-				</form>
-				
+						 <hr/>
+				</form>				
 			</div>			
 		);
 	}
