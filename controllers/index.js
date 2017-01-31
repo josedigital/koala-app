@@ -62,11 +62,15 @@ router.put('/api/job/delete/:user/:job_id', function( req, res ) {
   var userEmail = req.params.user
   //console.log(job_id, userEmail)
     Job.remove({ '_id': job_id})
-    .exec(function(err, doc){
-      if (err) {
-        console.log(err);
-      } else {
-        res.send(doc); //resulting json sent back to front
+    .exec(function(err, jobDoc){
+      if (err) {res.send(err)} 
+        else {
+          User.update({'email': userEmail},
+          {$pull: {Jobs: job_id}})
+          .exec(function (err, userArray){
+            if (err){res.send (err)}
+              else {res.send(jobDoc + userArray)}
+          })
       }
     });
 });
@@ -157,17 +161,41 @@ router.put('/api/job/note/edit', function( req, res ) {
     })
 }),
 
-// --- DELETE NOTE ** NEED TO REMOVE REF IN JOB ARRAY
-router.put('/api/job/note/delete', function( req, res ) {
+// --- DELETE NOTE AND  REMOVE REF IN JOB ARRAY
+
+// --- this is the origin delete with orphans --  can be deleted
+// router.put('/api/job/note/delete', function( req, res ) {
+//   var Jobs_id = req.body.Jobs_id;
+//   var Jobs_Notes_id = req.body.Jobs_Notes_id;
+//   var user = req.body.user
+//   console.log(Jobs_id, Jobs_Notes_id,user)
+//    Note.remove({'_id':Jobs_Notes_id})
+//    .exec(function (error, doc){
+//      if (error){res.send (error)}
+//       else { res.send (doc)}
+//    })
+// }),
+
+router.post('/api/job/note/delete', function( req, res ) {
   var Jobs_id = req.body.Jobs_id;
   var Jobs_Notes_id = req.body.Jobs_Notes_id;
-  var user = req.body.user
-  console.log(Jobs_id, Jobs_Notes_id,user)
-   Note.remove({'_id':Jobs_Notes_id})
-   .exec(function (error, doc){
-     if (error){res.send (error)}
-      else { res.send (doc)}
-   })
-}),
+  var user = req.body.user//not needed
+  //console.log(Jobs_id, Jobs_Notes_id,user)
+   Note.findOneAndRemove({'_id':Jobs_Notes_id},
+    function (error, removeddoc){
+        if (error){res.send (error)}
+          else {
+            Job.update({_id: Jobs_id}, 
+              {$pull: {Notes: Jobs_Notes_id}})
+                .exec(function (err, jobsArray){
+                  if (error){res.send (error)}
+                    else { res.send (jobsArray + removeddoc)}
+                      })
+            }
+      }) 
+})
 
 module.exports = router;
+
+
+                 

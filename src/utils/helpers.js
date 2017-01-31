@@ -67,40 +67,40 @@ export const jobHelpers = {
 
 export const noteHelpers = {
 
-    saveNote: (userEmail, jobId, noteCategory, jobNote) => {
-        console.log(userEmail, jobId, noteCategory, jobNote) // good
-        return axios.post('/api/job/note/save', {
-            user: userEmail,
-            jobId: jobId,
-            category: noteCategory,
-            noteText: jobNote
-        })
-    },
+  // --- SAVE
+  saveNote: (userEmail, jobId, noteCategory, jobNote) => {
+     console.log(userEmail, jobId, noteCategory, jobNote)// good
+    return axios.post('/api/job/note/save', {
+      user: userEmail,
+      jobId: jobId,
+      category: noteCategory,
+      noteText: jobNote
+    })
+  },
 
-    //This job id might not even be necessary because we get back the enire object
-    getNotes: (jobId) => {
-        return axios.get('/api/job/notes/' + jobId,
-            // {
-            //   job_id: jobId
-            // }
-        )
-    },
+  // --- GET
+  getNotes: (jobId) => {
+    return axios.get('/api/job/notes/'+jobId,
+    )
+  },
 
-    editNote: (noteId, currentNoteValue, editedCategory) => {
-        return axios.put('/api/job/note/edit', {
-            'category': editedCategory,
-            'noteText': currentNoteValue,
-            'noteId': noteId
-        })
-    },
+  // --- EDIT
+  editNote: (noteId, currentNoteValue, editedCategory) => {
+    return axios.put('/api/job/note/edit', {
+      'category': editedCategory,
+      'noteText': currentNoteValue,
+      'noteId': noteId
+    })
+  },
 
-    deleteNote: (currentUser, jobId, noteId) => {
-        return axios.put('/api/job/note/delete', {
-            user: currentUser,
-            Jobs_id: jobId,
-            Jobs_Notes_id: noteId
-        })
-    },
+  // --- DELETE
+  deleteNote: (currentUser, jobId, noteId) => {
+    return axios.post('/api/job/note/delete', {
+      user: currentUser,
+      Jobs_id: jobId,
+      Jobs_Notes_id: noteId
+    })
+  },
 
 }
 
