@@ -16,7 +16,7 @@ class NoteList extends React.Component {
       jobNote: '',
       noteId:'',
       noteCategory: '',
-      jobIdforNote: '588ecd252169472b97142d5f',
+      jobIdforNote: '588fee2814aacf02c224a2a8',
       notes: [],
       selectedJob: [],
       currentNoteValue: "I need to edit this on the fly which is {this.state.currentNoteValue}"
@@ -213,8 +213,7 @@ class NoteList extends React.Component {
             <p>NoteId = hard coded note.id from George's DB for testing</p>
             <p>Current note value = {this.state.currentNoteValue}</p>
             <form onSubmit={this.handleSubmitEditedNote}>
-              <InlineEdit
-                text={this.state.currentNoteValue} />
+          
               <TextArea
                 label='Edit this note text'
                 inputType='text'

@@ -7,8 +7,15 @@ export default class InlineEdit extends React.Component {
 
     this.state = {
       editing: props.editing,
-      text: props.text
+      // text: props.text,
+      text: this.props.note.noteText,
+      jobId:'',
+      jobNote: '',
+      noteId:'',
+      noteCategory: '',
+      jobIdforNote: ''
     }
+    this.componentDidMount = this.componentDidMount.bind(this)
   }
 
   static propTypes = {
@@ -17,9 +24,30 @@ export default class InlineEdit extends React.Component {
   };
 
   static defaultProps = {
-    text: "Default data of no note data from db",
+    text: "no data from database",
     editing: false
   };
+
+  handleJobId (e) {
+    this.setState({
+      jobId: e.target.value
+    })
+  }
+
+  handleJobNote (e) {
+    this.setState({
+      jobNote: e.target.value
+    })
+  }
+
+  componentDidMount(){
+    console.log(this.props.note._id)//note showing up
+    this.setState({
+      jobNote: this.props.note.noteText,
+      noteId: this.props.note._id,
+      noteCategory: this.props.note.category
+    })
+  }
 
   editElement = () => {
     this.setState({editing: true}, () => {

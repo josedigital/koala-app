@@ -2,10 +2,11 @@ import React from 'react'
 
 import {noteHelpers} from '../../utils/helpers'
 
-import EditableChild from '../EditableChild/EditableChild'
+// import EditableChild from '../EditableChild/EditableChild'
 import TextArea from '../Forms/TextArea'
 import TextInput from '../Forms/TextInput'
 import Select from '../Forms/Select'
+import InlineEdit from '../NoteList/InlineEdit'
 
 class NoteEdit extends React.Component {
   constructor (props) {
@@ -15,7 +16,7 @@ class NoteEdit extends React.Component {
       jobNote: '',
       noteId:'',
       noteCategory: '',
-      jobIdforNote: '588ecd252169472b97142d5f',
+      jobIdforNote: '588fee2814aacf02c224a2a8',
       notes: [],
       selectedJob: []
     }
@@ -115,7 +116,7 @@ class NoteEdit extends React.Component {
             <p>psuedo code for "edit" life cycle</p>
             <p>db Get user/job/notes -> save what is returned to state -> rendor to DOM notes in an editable format -> make changes to note -> db Update user/job/note -> (?)db Get user/job/note -> save what is returned to state -> rendor to DOM "new" notes in an editable format => start cycle over again </p>
             
-              {this.state.notes.map ((note, idx) => <EditableChild handleEditNote={this.handleEditNote} key={idx} note={note} />)}
+              {this.state.notes.map ((note, idx) => <InlineEdit handleEditNote={this.handleEditNote} key={idx} note={note} />)}
             
 
         </div>
