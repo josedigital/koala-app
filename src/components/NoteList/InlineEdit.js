@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDom from 'react-dom'
+import {noteHelpers} from '../../utils/helpers'
 
 export default class InlineEdit extends React.Component {
   constructor(props){
@@ -12,10 +13,10 @@ export default class InlineEdit extends React.Component {
       jobId:'',
       jobNote: '',
       noteId:'',
-      noteCategory: '',
-      jobIdforNote: ''
+      noteCategory: ''
     }
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.handleSubmitEditedNote = this.handleSubmitEditedNote.bind(this)
   }
 
   static propTypes = {
@@ -24,24 +25,12 @@ export default class InlineEdit extends React.Component {
   };
 
   static defaultProps = {
-    text: "no data from database",
+    // text: "Default data of no note data from db",
     editing: false
   };
 
-  handleJobId (e) {
-    this.setState({
-      jobId: e.target.value
-    })
-  }
-
-  handleJobNote (e) {
-    this.setState({
-      jobNote: e.target.value
-    })
-  }
-
   componentDidMount(){
-    console.log(this.props.note._id)//note showing up
+    console.log(this.props.note._id, this.props.note.category)//note showing up
     this.setState({
       jobNote: this.props.note.noteText,
       noteId: this.props.note._id,
@@ -49,18 +38,38 @@ export default class InlineEdit extends React.Component {
     })
   }
 
-  editElement = () => {
-    this.setState({editing: true}, () => {
-      // Focus and select all text
-      ReactDom.findDOMNode(this.refs.textField.value);
-      console.log(this.refs.textField.value)
-    });
+  // editElement = () => {
+  //   this.setState({editing: true}, () => {
+  //     // Focus and select all text
+  //     ReactDom.findDOMNode(this.refs.textField.value);
+  //     console.log(this.refs.textField.value)
+  //   });
+  // }
+  
+  editElement = (e) => {
+    this.setState({
+      editing: true,
+    })
   }
+
+  handleSubmitEditedNote(e){
+    // e.preventDefault()
+    noteHelpers.editNote(this.props.note._id, e.target.value, this.props.note.category).then(function(response){
+      console.log("note updated for " + this.state.noteId + " category " + this.props.note.category)
+      console.log(response.data)
+    }.bind(this));
+    this.setState({
+    text: e.target.value
+    })
+  }
+
 
   keyAction = (e) => {
      if(e.keyCode === 13) {
        // Enter to save
-       this.setState({text: e.target.value, editing: false});
+       console.log(e.target.value)  //has value
+       this.setState({editing: false });
+       this.handleSubmitEditedNote(e)
      } else if(e.keyCode === 27) {
        // ESC to cancel
        this.setState({editing: false});
@@ -74,14 +83,15 @@ export default class InlineEdit extends React.Component {
           <input
             type="text"
             onKeyDown={this.keyAction}
-            defaultValue={this.state.text}
-            ref="textField" />
+            defaultValue={this.props.note.noteText} 
+            ref= "textField" />
         </div>
       );
     } else {
       return(
         <div onDoubleClick={this.editElement}>
-          {this.state.text}
+          <p>{this.state.text}</p>
+          <hr />
         </div>
       );
     }

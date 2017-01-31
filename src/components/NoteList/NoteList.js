@@ -6,7 +6,7 @@ import Note from '../Note/Note'
 import TextArea from '../Forms/TextArea'
 import TextInput from '../Forms/TextInput'
 import Select from '../Forms/Select'
-import InlineEdit from './InlineEdit'
+// import InlineEdit from './InlineEdit'
 
 class NoteList extends React.Component {
   constructor (props) {
