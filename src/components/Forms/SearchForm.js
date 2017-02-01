@@ -34,13 +34,10 @@ class SearchForm extends Component {
     }
 
     handleSubmitGetJobs(e){
-
-        e.preventDefault();   
-        
+        e.preventDefault();        
         var term;
         var location;
-        var results;
-      
+        var results;      
 
         (this.state.keyWord == '') ? term = 'all' : term = this.state.keyWord;  
         console.log("search term" + term); 
@@ -52,21 +49,11 @@ class SearchForm extends Component {
         jobsApiSearch(term, location).then(function(response) {
            this.setState({searchResults: response.data})
            results = this.state.searchResults;
-           this.props.setSearchResults(results);
-           //console.log(results)
-        }.bind(this));
-
         // send results returned to the parent component
-        
+           this.props.setSearchResults(results);          
+        }.bind(this));       
     }
 
-    // componentWillMount() {
-    //     console.log(this.props.profile)
-    //     jobsApi().then(function(response) {
-    //        this.setState({searchResults: response.data})
-    //         console.log(this.state.searchResults);
-    //     }.bind(this));
-    // }
 
 
     render() {

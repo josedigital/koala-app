@@ -18,24 +18,13 @@ class SearchResults extends Component {
     }
 
     setSearchResults(results){
-        console.log("Inside setSearchResults in SearchResults"); 
-
+        console.log("Inside setSearchResults in SearchResults");
         this.setState({
           jobList: results
         });
         console.log(this.state.jobList);
 
     }    
-
-    // componentWillMount() {
-    //     console.log(this.props.profile)
-    //     jobsApi().then(function(response) {
-    //        this.setState({searchResults: response.data})
-    //         console.log(this.state.searchResults);
-    //     }.bind(this));
-    // }
-
-
     render() {
         console.log("Inside Search Results Page");
         const profile = (this.props.profile) ? this.props.profile : ''
