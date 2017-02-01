@@ -10,10 +10,12 @@ class SearchResults extends Component {
         super(props)
         this.state = {
             keyWord : '',
+            location: '',
             searchResults: []
         }
-        this.handleKeyWordSearch = this.handleKeyWordSearch.bind(this);
+         this.handleKeyWordSearch = this.handleKeyWordSearch.bind(this);
          this.handleSubmitGetJobs = this.handleSubmitGetJobs.bind(this);
+         this.handleLocationSearch = this.handleLocationSearch.bind(this);
     }
 
     handleKeyWordSearch(e){
@@ -22,12 +24,36 @@ class SearchResults extends Component {
       })
     }
 
+
+    handleLocationSearch(e){
+        this.setState({
+          location: e.target.value
+      })
+    }
+
     handleSubmitGetJobs(e){
 
-        e.preventDefault();
+        e.preventDefault();   
         
-        console.log("inside keyword search handlesubmit" + this.state.keyWord );
-        jobsApiSearch(this.state.keyWord).then(function(response) {
+        var term;
+        var location;
+      
+
+        if(this.state.keyWord == '') {
+            term = 'all';
+        } else {
+            term = this.state.keyWord;            
+        }
+
+        console.log("search term" + term); 
+
+        if(this.state.location == ''){
+            location = 'all';
+        } else {
+            location = this.state.location;
+        }
+        console.log("search location" + location); 
+        jobsApiSearch(term, location).then(function(response) {
            this.setState({searchResults: response.data})
             console.log(this.state.searchResults);
         }.bind(this));
@@ -54,13 +80,20 @@ class SearchResults extends Component {
             </div>
             <div className="Grid center">
                 <form onSubmit={ this.handleSubmitGetJobs}>
-                 <TextInput 
+                    <TextInput 
                     label='Enter Key Word To Search'
                     inputType='text'
                     name='keyWord'
                     controlFunction={this.handleKeyWordSearch}
                     content={this.state.keyWord}
-                    placeholder='Search For Keyword' />
+                    placeHolder='Search For Keyword' />
+                     <TextInput 
+                    label='Enter Location'
+                    inputType='text'
+                    name='location'
+                    controlFunction={this.handleLocationSearch}
+                    content={this.state.location}
+                    placeHolder='Austin,TX' />
                     <button type="submit">
                     Search
                     </button>
