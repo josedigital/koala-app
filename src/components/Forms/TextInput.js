@@ -1,8 +1,12 @@
 import React from 'react'
 
+var inputInline ={
+  padding: 10
+};
+
 const TextInput= (props) => {
   return (
-    <div className="form-element">
+    <div className="form-element" style={inputInline}>
       <label htmlFor={props.name} className="form-label">{props.label}</label>
       <input 
         type={props.inputType} 
