@@ -52,8 +52,25 @@ router.get ( '/api/all/jobs/:userEmail', function( req, res ) {
 
 
 //- edit Job
-router.put('/api/job/edit', function( req, res ) {}),
-//I'm not sure how this will work, edit all fields, or just one field at a time? Need more info on the process, I'm thinking it's just one field at a time
+router.put('/api/job/edit', function( req, res ) {
+  var jobId = req.body.jobId
+  var title = req.body.title
+  var url = req.body.url
+  var summary = req.body.summary
+  var location = req.body.location
+  var company = req.body.category
+  console.log("controlerEditJOb= "+jobId, title, company)//working
+ Job.findOneAndUpdate({'_id' : jobId,}, 
+    { 'title': title, 
+      'url': url,
+      'summary': summary,
+      'location': location,
+      'company': company
+    },{new:true},function(err, Doc){
+      if (err) {res.send(err)} 
+      else {res.send(Doc)}
+    })
+}),
 
 // --- DELETE JOB ** NEED TO CLEAR REF IN USER ARRAY
 

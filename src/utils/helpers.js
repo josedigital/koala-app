@@ -20,40 +20,41 @@ export const userHelpers = {
 
 export const jobHelpers = {
 
-    saveApiJob: ( /*will require the same data as saveJob*/ ) => {}, //this function and createjob might be able to be the same
-
+    // ---  SAVE JOB 
     saveJob: (user, newTitle, newCompany, newUrl, newLocation, newSummary) => {
         // console.log(newCompany+"save job in helper")
         return axios.post('/api/job/save', {
-            title: newTitle,
-            url: newUrl,
-            summary: newSummary,
-            location: newLocation,
-            isHot: false,
-            status: 'new',
-            company: newCompany,
-            user: user
+            'title': newTitle,
+            'url': newUrl,
+            'summary': newSummary,
+            'location': newLocation,
+            'isHot': false,
+            'status': 'new',
+            'company': newCompany,
+            'user': user
         })
     },
 
-
+    // ---  GET JOBS 
     getJobs: (userEmail) => {
         //console.log('#38 helpers userEmail='+userEmail)//good
         return axios.get('/api/all/jobs/' + userEmail)
     },
 
-    //this will require a job _id - built on a guess for now
-    editJob: (job_id, newTitle, newUrl, newSummary, newLocation) => {
-        return axios.put('/api/jobs/edit', {
-            job_id: job_id,
-            title: newTitle,
-            url: newUrl,
-            summary: newSummary,
-            location: newLocation
+    // ---  EDIT JOB 
+    editJob: (jobId, newTitle, newUrl, newSummary, newLocation, newCompany) => {
+        return axios.put('/api/job/edit', {
+            
+            'title': newTitle,//title is required, defined in model
+            'url': newUrl,
+            'summary': newSummary,
+            'location': newLocation,
+            'company': newCompany,
+            'jobId': jobId,
         })
     },
 
-
+    // ---  DELETE JOB 
     deleteJob: (user, job_id) => {
         // console.log('helper', user, job_id)//good
         return axios.put('/api/job/delete/' + user + '/' + job_id
@@ -67,24 +68,24 @@ export const jobHelpers = {
 
 export const noteHelpers = {
 
-  // --- SAVE
+  // --- SAVE NOTE
   saveNote: (userEmail, jobId, noteCategory, jobNote) => {
      console.log(userEmail, jobId, noteCategory, jobNote)// good
     return axios.post('/api/job/note/save', {
-      user: userEmail,
-      jobId: jobId,
-      category: noteCategory,
-      noteText: jobNote
+      'user': userEmail,
+      'jobId': jobId,
+      'category': noteCategory,
+      'noteText': jobNote
     })
   },
 
-  // --- GET
+  // --- GET NOTE
   getNotes: (jobId) => {
     return axios.get('/api/job/notes/'+jobId,
     )
   },
 
-  // --- EDIT
+  // --- EDIT NOTE
   editNote: (noteId, currentNoteValue, editedCategory) => {
     return axios.put('/api/job/note/edit', {
       'category': editedCategory,
@@ -93,12 +94,12 @@ export const noteHelpers = {
     })
   },
 
-  // --- DELETE
+  // --- DELETE NOTE
   deleteNote: (currentUser, jobId, noteId) => {
     return axios.post('/api/job/note/delete', {
-      user: currentUser,
-      Jobs_id: jobId,
-      Jobs_Notes_id: noteId
+      'user': currentUser,
+      'Jobs_id': jobId,
+      'Jobs_Notes_id': noteId
     })
   },
 
