@@ -18,3 +18,6 @@ export TextInput from './Forms/TextInput'
 export NoteEdit from './NoteEdit/NoteEdit'
 export EditableChild from './EditableChild/EditableChild'
 
+export Misc from './Misc/Misc'
+export EditJob from './EditJob/EditJob'
+

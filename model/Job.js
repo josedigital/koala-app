@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const uniqueValidator = require('mongoose-unique-validator');
+
+const Schema = mongoose.Schema;
 
 const Job = new Schema({
     title: {type:String, required:true},
@@ -16,5 +18,6 @@ const Job = new Schema({
         }]        
 });
 
+Job.plugin(uniqueValidator);
 
 module.exports = mongoose.model('Job', Job);
