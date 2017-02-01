@@ -3,70 +3,71 @@ import React, { Component } from 'react'
 import { jobsApi } from '../../utils/helpers.js';
 import { jobsApiSearch } from '../../utils/helpers.js';
 import TextInput from '../Forms/TextInput';
+import SearchForm from '../Forms/SearchForm'
 import ListItem from './ListItem';
 
 class SearchResults extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            keyWord : '',
-            location: '',
-            searchResults: []
-        }
-         this.handleKeyWordSearch = this.handleKeyWordSearch.bind(this);
-         this.handleSubmitGetJobs = this.handleSubmitGetJobs.bind(this);
-         this.handleLocationSearch = this.handleLocationSearch.bind(this);
+        // this.state = {
+        //     keyWord : '',
+        //     location: '',
+        //     searchResults: []
+        // }
+        //  this.handleKeyWordSearch = this.handleKeyWordSearch.bind(this);
+        //  this.handleSubmitGetJobs = this.handleSubmitGetJobs.bind(this);
+        //  this.handleLocationSearch = this.handleLocationSearch.bind(this);
     }
 
-    handleKeyWordSearch(e){
-        this.setState({
-          keyWord: e.target.value
-      })
-    }
+    // handleKeyWordSearch(e){
+    //     this.setState({
+    //       keyWord: e.target.value
+    //   })
+    // }
 
 
-    handleLocationSearch(e){
-        this.setState({
-          location: e.target.value
-      })
-    }
+    // handleLocationSearch(e){
+    //     this.setState({
+    //       location: e.target.value
+    //   })
+    // }
 
-    handleSubmitGetJobs(e){
+    // handleSubmitGetJobs(e){
 
-        e.preventDefault();   
+    //     e.preventDefault();   
         
-        var term;
-        var location;
+    //     var term;
+    //     var location;
       
 
-        if(this.state.keyWord == '') {
-            term = 'all';
-        } else {
-            term = this.state.keyWord;            
-        }
+    //     if(this.state.keyWord == '') {
+    //         term = 'all';
+    //     } else {
+    //         term = this.state.keyWord;            
+    //     }
 
-        console.log("search term" + term); 
+    //     console.log("search term" + term); 
 
-        if(this.state.location == ''){
-            location = 'all';
-        } else {
-            location = this.state.location;
-        }
-        console.log("search location" + location); 
-        jobsApiSearch(term, location).then(function(response) {
-           this.setState({searchResults: response.data})
-            console.log(this.state.searchResults);
-        }.bind(this));
+    //     if(this.state.location == ''){
+    //         location = 'all';
+    //     } else {
+    //         location = this.state.location;
+    //     }
+    //     console.log("search location" + location); 
+    //     jobsApiSearch(term, location).then(function(response) {
+    //        this.setState({searchResults: response.data})
+    //         console.log(this.state.searchResults);
+    //     }.bind(this));
 
-    }
+    // }
 
-    componentWillMount() {
-        console.log(this.props.profile)
-        jobsApi().then(function(response) {
-           this.setState({searchResults: response.data})
-            console.log(this.state.searchResults);
-        }.bind(this));
-    }
+    // componentWillMount() {
+    //     console.log(this.props.profile)
+    //     jobsApi().then(function(response) {
+    //        this.setState({searchResults: response.data})
+    //         console.log(this.state.searchResults);
+    //     }.bind(this));
+    // }
 
 
     render() {
@@ -75,37 +76,8 @@ class SearchResults extends Component {
         return (
                 
             <div> 
-             <div className="Grid center">               
-                 <h1>Search Jobs</h1>               
-            </div>
-            <div className="Grid center">
-                <form onSubmit={ this.handleSubmitGetJobs}>
-                    <TextInput 
-                    label='Enter Key Word To Search'
-                    inputType='text'
-                    name='keyWord'
-                    controlFunction={this.handleKeyWordSearch}
-                    content={this.state.keyWord}
-                    placeHolder='Search For Keyword' />
-                     <TextInput 
-                    label='Enter Location'
-                    inputType='text'
-                    name='location'
-                    controlFunction={this.handleLocationSearch}
-                    content={this.state.location}
-                    placeHolder='Austin,TX' />
-                    <button type="submit">
-                    Search
-                    </button>
-                </form>  
-            </div>  
-            <hr/>
-            <div className="container">
-             <div className="Grid">         
-                {this.state.searchResults.map((result, i) => <ListItem key={i} btnText={"Save Job"} result={result} profile={profile} />)}
-            </div>
-            </div>
-        </div>    
+            <SearchForm />          
+            </div>    
 
         )
     }
