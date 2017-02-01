@@ -2,64 +2,30 @@ import React, { Component } from 'react'
 
 import { jobsApi } from '../../utils/helpers.js';
 import { jobsApiSearch } from '../../utils/helpers.js';
-import TextInput from '../Forms/TextInput';
 import SearchForm from '../Forms/SearchForm'
 import ListItem from './ListItem';
+import JobList from './JobList';
 
 class SearchResults extends Component {
     constructor(props) {
         super(props)
-        // this.state = {
-        //     keyWord : '',
-        //     location: '',
-        //     searchResults: []
-        // }
-        //  this.handleKeyWordSearch = this.handleKeyWordSearch.bind(this);
-        //  this.handleSubmitGetJobs = this.handleSubmitGetJobs.bind(this);
-        //  this.handleLocationSearch = this.handleLocationSearch.bind(this);
+        this.state = {
+            jobList: []
+        }
+
+        this.setSearchResults = this.setSearchResults.bind(this);
+              
     }
 
-    // handleKeyWordSearch(e){
-    //     this.setState({
-    //       keyWord: e.target.value
-    //   })
-    // }
+    setSearchResults(results){
+        console.log("Inside setSearchResults in SearchResults"); 
 
+        this.setState({
+          jobList: results
+        });
+        console.log(this.state.jobList);
 
-    // handleLocationSearch(e){
-    //     this.setState({
-    //       location: e.target.value
-    //   })
-    // }
-
-    // handleSubmitGetJobs(e){
-
-    //     e.preventDefault();   
-        
-    //     var term;
-    //     var location;
-      
-
-    //     if(this.state.keyWord == '') {
-    //         term = 'all';
-    //     } else {
-    //         term = this.state.keyWord;            
-    //     }
-
-    //     console.log("search term" + term); 
-
-    //     if(this.state.location == ''){
-    //         location = 'all';
-    //     } else {
-    //         location = this.state.location;
-    //     }
-    //     console.log("search location" + location); 
-    //     jobsApiSearch(term, location).then(function(response) {
-    //        this.setState({searchResults: response.data})
-    //         console.log(this.state.searchResults);
-    //     }.bind(this));
-
-    // }
+    }    
 
     // componentWillMount() {
     //     console.log(this.props.profile)
@@ -76,7 +42,8 @@ class SearchResults extends Component {
         return (
                 
             <div> 
-            <SearchForm />          
+            <SearchForm setSearchResults={this.setSearchResults} /> 
+            <JobList jobList={this.state.jobList} />         
             </div>    
 
         )

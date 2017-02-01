@@ -13,6 +13,7 @@ class SearchForm extends Component {
             location: '',
             searchResults: []
         }
+
          this.handleKeyWordSearch = this.handleKeyWordSearch.bind(this);
          this.handleLocationSearch = this.handleLocationSearch.bind(this);
          this.handleSubmitGetJobs = this.handleSubmitGetJobs.bind(this);
@@ -38,27 +39,25 @@ class SearchForm extends Component {
         
         var term;
         var location;
+        var results;
       
 
-        if(this.state.keyWord == '') {
-            term = 'all';
-        } else {
-            term = this.state.keyWord;            
-        }
-
+        (this.state.keyWord == '') ? term = 'all' : term = this.state.keyWord;  
         console.log("search term" + term); 
 
-        if(this.state.location == ''){
-            location = 'all';
-        } else {
-            location = this.state.location;
-        }
+        (this.state.location == '') ? location = 'all' : location = this.state.location;        
         console.log("search location" + location); 
+
+
         jobsApiSearch(term, location).then(function(response) {
            this.setState({searchResults: response.data})
-            console.log(this.state.searchResults);
+           results = this.state.searchResults;
+           this.props.setSearchResults(results);
+           //console.log(results)
         }.bind(this));
 
+        // send results returned to the parent component
+        
     }
 
     // componentWillMount() {
@@ -71,7 +70,7 @@ class SearchForm extends Component {
 
 
     render() {
-        console.log("Inside Search Results Page");
+        console.log("Inside Search Form Component");
         const profile = (this.props.profile) ? this.props.profile : ''
 
         var formInline= {
@@ -110,11 +109,7 @@ class SearchForm extends Component {
                 </form>  
             </div>  
             <hr/>
-            <div className="container">
-             <div className="Grid">         
-                {this.state.searchResults.map((result, i) => <ListItem key={i} btnText={"Save Job"} result={result} profile={profile} />)}
-            </div>
-            </div>
+         
         </div>    
 
         )
