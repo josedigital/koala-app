@@ -109,8 +109,9 @@ export const noteHelpers = {
 export function jobsApi() {
     return axios.get('/api/jobs/all')
 }
-export function jobsApiSearch(searchTerm) {
-    return axios.get('/api/jobs/' + searchTerm)
+export function jobsApiSearch(searchTerm, searchLocation) {
+  
+    return axios.get('/api/jobs/' + searchTerm + '/' + searchLocation)
 }
 
 export function checkUser(username) {
