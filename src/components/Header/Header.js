@@ -4,17 +4,28 @@ import './Header.css'
 
 const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }) =>
   <div>
-    <h1>React Redux Auth0 Kit</h1>
-    <ul className="list-inline">
-      <li><Link to='/'>Home</Link></li>
-      <li><Link to='/about'>About</Link></li>
-    </ul>
+    <h1>Koala App</h1>
+    <nav className="Main-nav">
+      <ul className="Grid center">
+        <li className="Cell Main-nav__item"><Link to='/' className="Main-nav__link">Home</Link></li>
+        <li className="Cell Main-nav__item"><Link to='/about' className="Main-nav__link">About+</Link></li>
+        <li className="Cell Main-nav__item"><Link to='/job-list' className="Main-nav__link">Job List</Link></li>
+        <li className="Cell Main-nav__item"><Link to='/note-list' className="Main-nav__link">Note List</Link></li>
+        <li className="Cell Main-nav__item"><Link to='/note-edit' className="Main-nav__link">Note Edit</Link></li>
+        <li className="Cell Main-nav__item"><Link to='/search-results' className="Main-nav__link">Search Results</Link></li>
+        <li className="Cell Main-nav__item"><Link to='/misc' className="Main-nav__link">Misc</Link></li>
+
+      </ul>
+    </nav>
+    
     { !isAuthenticated ? (
       <button onClick={onLoginClick}>Login</button>
     ) : (
-      <div>
-        <img src={profile.picture} height="40px" />
+      <div className="Profile">
+        <img src={profile.picture} height="100vh" className="Profile__image" />
+        <br/>
         <span>Welcome, {profile.nickname}</span>
+        <br/>
         <button onClick={onLogoutClick}>Logout</button>
       </div>
     )}

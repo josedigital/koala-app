@@ -1,5 +1,8 @@
 import React from 'react'
 import { HeaderContainer } from '../../containers'
+import { SearchResults } from '../index'
+import { checkUser, createUser, isEmpty } from '../../utils/helpers'
+import './App.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -7,12 +10,25 @@ class App extends React.Component {
     this.props.checkLogin() // check is Auth0 lock is authenticating after login callback
   }
 
+  componentDidMount () {
+    if (!isEmpty(this.props.profile)) {
+      checkUser(this.props.profile.nickname)
+        .then(({data}) => {
+          if (typeof data.user === 'string')
+            createUser(this.props.profile)
+              .then(data => console.log(data))
+        })
+    }
+  }
+  
+
   render() {
+    const childrenWithProps = React.Children.map(this.props.children, (child) => React.cloneElement(child, {profile: this.props.profile}))
     return(
-      <div>
+      <div className="container">
         <HeaderContainer />
         {
-          this.props.isAuthenticated ? this.props.children : 'no dice'
+          this.props.isAuthenticated ? childrenWithProps : <SearchResults />
         }
         
       </div>

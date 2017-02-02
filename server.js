@@ -7,11 +7,18 @@ const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const config = require('./webpack.config.js');
 const mongoose = require('mongoose');
+const Promise = require('bluebird');//gr
 const fs = require('fs');
+const bodyParser = require('body-parser');
+
+mongoose.Promise = Promise;
+
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const controllers = require('./controllers/index');
 
 
@@ -34,7 +41,7 @@ if (isDeveloping) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
-  app.get('*', function response(req, res) {
+  app.get(/^(?!.*(api))/, function response(req, res) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
     res.end();
   });
@@ -45,6 +52,18 @@ if (isDeveloping) {
       app.use(route, controllers);
     }
   });
+
+  //--------------------- MONGOOSE
+  
+  mongoose.connect('mongodb://localhost/koalaV2');
+  var db = mongoose.connection;
+  db.on("error", function(err){
+      console.log("Mongoose connection error", err);
+  });
+  db.once("open", function(){
+      console.log("Mongoose connection Successful, check port 3000");
+  });
+
 } else {
   app.use(express.static(__dirname + '/dist'));
   app.get('*', function response(req, res) {
@@ -56,5 +75,5 @@ app.listen(port, '0.0.0.0', function onStart(error) {
   if (error) {
     console.log(error);
   }
-  console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+  console.info('==> 🐨 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser. 🐨', port, port);
 });

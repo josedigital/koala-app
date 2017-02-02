@@ -1,9 +1,11 @@
 import React from 'react'
 
-const AboutPage = () =>
+const AboutPage = ({profile}) =>
   <div>
-    <h2>About</h2>
-    <p>Some info about React Redux Auth0 Kit.</p>
+    <h2>About {profile.given_name}</h2>
+    <p>I'm going to place some random components in here to test</p>
   </div>
+
+
 
 export default AboutPage
