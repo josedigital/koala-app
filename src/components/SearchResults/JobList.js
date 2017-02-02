@@ -10,6 +10,4 @@ const JobList = ({ jobList, handleSave }) => {
 		</div>  
 	)
 }
-
-
 export default JobList

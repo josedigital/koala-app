@@ -25,7 +25,7 @@ class App extends React.Component {
   render() {
     const childrenWithProps = React.Children.map(this.props.children, (child) => React.cloneElement(child, {profile: this.props.profile}))
     return(
-      <div className="container">
+      <div className="container large">
         <HeaderContainer />
         {
           this.props.isAuthenticated ? childrenWithProps : <SearchResults />
