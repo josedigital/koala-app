@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 
 import { AppContainer } from './containers'
 
-import { HomePage, AboutPage, CustomJob, NotFoundPage, Note, NoteEdit, SearchResults, EditJob, Misc } from './components'
+import { HomePage, AboutPage, CustomJob, NotFoundPage, Note, NoteEdit, SearchResults, EditJob, Misc, Delete } from './components'
 
 export default function createRoutes() {
   return(
