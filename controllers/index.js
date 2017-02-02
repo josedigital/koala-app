@@ -196,7 +196,7 @@ router.put('/api/job/note/edit', function( req, res ) {
 router.post('/api/job/note/delete', function( req, res ) {
   var Jobs_id = req.body.Jobs_id;
   var Jobs_Notes_id = req.body.Jobs_Notes_id;
-  var user = req.body.user//not needed
+  //var user = req.body.user//not needed
   //console.log(Jobs_id, Jobs_Notes_id,user)
    Note.findOneAndRemove({'_id':Jobs_Notes_id},
     function (error, removeddoc){

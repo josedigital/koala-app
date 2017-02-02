@@ -20,4 +20,5 @@ export EditableChild from './EditableChild/EditableChild'
 
 export Misc from './Misc/Misc'
 export EditJob from './EditJob/EditJob'
+export Delete from './ListActions/Delete'
 

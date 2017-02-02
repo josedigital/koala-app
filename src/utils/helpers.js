@@ -95,9 +95,8 @@ export const noteHelpers = {
   },
 
   // --- DELETE NOTE
-  deleteNote: (currentUser, jobId, noteId) => {
+  deleteNote: (jobId, noteId) => {
     return axios.post('/api/job/note/delete', {
-      'user': currentUser,
       'Jobs_id': jobId,
       'Jobs_Notes_id': noteId
     })

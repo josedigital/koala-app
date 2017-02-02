@@ -79,7 +79,7 @@ class CustomJob extends React.Component {
       <div className="container home">
         <h2>All of {this.props.profile.nickname}'s Jobs</h2>
         <ol>
-         {this.state.jobList.map ((job, idx) =>  <JobLister key={idx} job={job} /> )}
+         {this.state.jobList.map ((job, idx) =>  <JobLister key={idx} job={job} email={this.props.profile.email}/> )}
         </ol>
 
         
