@@ -14,25 +14,9 @@ class SearchResults extends Component {
         message: ''
     }
 
-    this.handleSave = this.handleSave.bind(this)
-    this.setSearchResults = this.setSearchResults.bind(this)
-            
+    this.setSearchResults = this.setSearchResults.bind(this)      
   }
 
-	handleSave (result) {
-    if (this.props.profile) {
-    	jobHelpers.saveJob(this.props.profile.email, result.title, result.company, result.url, result.location)//missing this.state.summary from api call
-    		.then(function (response) {
-    			console.log(response.data)
-    		}.bind(this))
-    } else {
-    	console.log('you have to be logged in')
-    	this.setState({
-    		message: 'You have to login to save jobs'
-    	})
-    }
-
-	}    
 
     setSearchResults (results){
       this.setState({
@@ -48,7 +32,7 @@ class SearchResults extends Component {
         <div>
           <SearchForm setSearchResults={this.setSearchResults} /> 
           { message }
-          <JobList jobList={this.state.jobList} handleSave={this.handleSave} />
+          <JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />
         </div>
       )
     }
