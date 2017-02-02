@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Delete from '../ListActions/Delete'
 
 class JobLister extends Component {
   constructor (props) {
@@ -23,6 +24,7 @@ class JobLister extends Component {
         <p>Job._id = {this.props.job._id}</p>
         <p>need a "make hot"" button</p>
         <p>need a "delete button"</p>
+        <Delete deleteThis="job" jobId={this.props.job._id} email={this.props.email}/>
         <p>need a "edit button"</p>
         <p>need a "status drop down"</p>
         <hr />
