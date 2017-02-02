@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 
 import { AppContainer } from './containers'
 
-import { HomePage, AboutPage, CustomJob, NotFoundPage, Note, NoteEdit, SearchResults, EditJob, Misc, Delete } from './components'
+import { HomePage, AboutPage, CustomJob, NotFoundPage, Note, NoteEdit, SearchResults, EditJob, Misc, Delete, Dashboard } from './components'
 
 export default function createRoutes() {
   return(
@@ -17,6 +17,7 @@ export default function createRoutes() {
       <Route path ='/edit-job' component = { EditJob } />
       <Route path = '/misc' component = { Misc } />
       <Route path = '/delete-button' component = { Delete } />
+      <Route path = '/dashboard' component = { Dashboard } />
 
       <Route path='*' component={NotFoundPage} />
       

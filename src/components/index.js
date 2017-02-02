@@ -22,3 +22,4 @@ export Misc from './Misc/Misc'
 export EditJob from './EditJob/EditJob'
 export Delete from './ListActions/Delete'
 
+export Dashboard from './Dashboard/Dashboard'

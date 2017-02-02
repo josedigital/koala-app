@@ -14,6 +14,7 @@ const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }
         <li className="Cell Main-nav__item"><Link to='/note-edit' className="Main-nav__link">Note Edit</Link></li>
         <li className="Cell Main-nav__item"><Link to='/search-results' className="Main-nav__link">Search Results</Link></li>
         <li className="Cell Main-nav__item"><Link to='/misc' className="Main-nav__link">Misc</Link></li>
+        <li className="Cell Main-nav__item"><Link to='/dashboard' className="Main-nav__link">Dashboard</Link></li>
 
       </ul>
     </nav>
