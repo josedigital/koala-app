@@ -15,10 +15,12 @@ class App extends React.Component {
 
     this.state = {
       saved_jobs: [],
-      status: REQUEST
+      status: REQUEST,
+      message: ''
     }
 
     this.getSavedJobs = this.getSavedJobs.bind(this)
+    this.saveJob = this.saveJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
   }
 
@@ -37,7 +39,7 @@ class App extends React.Component {
   // save jobs to app state
   getSavedJobs (email) {
     jobHelpers.getJobs(email).then(function(response) {
-      if (response.data.Jobs !== this.state.jobList) {
+      if (response.data.Jobs !== this.state.saved_jobs) {
         this.setState({
           saved_jobs:response.data.Jobs,
           status: SUCCESS
@@ -46,18 +48,26 @@ class App extends React.Component {
     }.bind(this));
   }
   
+	saveJob (job) {
+    if (this.props.profile) {
+    	jobHelpers.saveJob(this.props.profile.email, job.title, job.company, job.url, job.location)//missing this.state.summary from api call
+    		.then(function (response) {
+          this.getSavedJobs(this.props.profile.email)
+    		}.bind(this))
+    } else {
+    	console.log('you have to be logged in')
+    	this.setState({
+    		message: 'You have to login to save jobs'
+    	})
+    }
+	}    
 
   deleteJob (jobId) {
     const email = this.props.profile.email
     jobHelpers.deleteJob(email, jobId)
       .then(function(data) {
-        console.log("user email and jobId sent to db for DELETION from Delete Comp #37")
-        console.log(data.data)
-        console.log('------------')
-        console.log(data)
         this.getSavedJobs(email)
       }.bind(this));
-    //maybe we should give the user a message when the item is deleted?
   }
 
 
@@ -67,7 +77,7 @@ class App extends React.Component {
   
 
   render() {
-    const childrenWithProps = React.Children.map(this.props.children, (child) => React.cloneElement(child, {profile: this.props.profile}))
+    const childrenWithProps = React.Children.map(this.props.children, (child) => React.cloneElement(child, {profile: this.props.profile, saveJob: this.saveJob }))
     
 
     return(
