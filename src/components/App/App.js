@@ -71,7 +71,7 @@ class App extends React.Component {
     
 
     return(
-      <div className="container">
+      <div className="container large">
         <HeaderContainer />
         {
           this.props.isAuthenticated ? childrenWithProps : <SearchResults />
