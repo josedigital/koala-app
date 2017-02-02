@@ -1,9 +1,9 @@
 import React from 'react'
 
-const SavedJobItem = ({title}) => {
+const SavedJobItem = ({title, id, deleteJob}) => {
  return (
    <li>
-     {title}
+     {title} - <button onClick={ () => {deleteJob(id)} }>X</button>
    </li>
  ) 
 }

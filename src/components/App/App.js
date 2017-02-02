@@ -19,6 +19,7 @@ class App extends React.Component {
     }
 
     this.getSavedJobs = this.getSavedJobs.bind(this)
+    this.deleteJob = this.deleteJob.bind(this)
   }
 
   componentDidMount () {
@@ -45,8 +46,23 @@ class App extends React.Component {
     }.bind(this));
   }
   
+
+  deleteJob (jobId) {
+    const email = this.props.profile.email
+    jobHelpers.deleteJob(email, jobId)
+      .then(function(data) {
+        console.log("user email and jobId sent to db for DELETION from Delete Comp #37")
+        console.log(data.data)
+        console.log('------------')
+        console.log(data)
+        this.getSavedJobs(email)
+      }.bind(this));
+    //maybe we should give the user a message when the item is deleted?
+  }
+
+
   loading () {
-    return 'saved jobs loading...'
+    return 'content loading...'
   }
   
 
@@ -61,7 +77,7 @@ class App extends React.Component {
           this.props.isAuthenticated ? childrenWithProps : <SearchResults />
         }
         { 
-          this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} />
+          this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} deleteJob={this.deleteJob} />
         }
       </div>
     )
