@@ -15,5 +15,5 @@
 }
 
 .Profile{
-	display: inherit;
+	display: flex;
 }
