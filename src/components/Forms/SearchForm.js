@@ -60,44 +60,41 @@ class SearchForm extends Component {
         console.log("Inside Search Form Component");
         const profile = (this.props.profile) ? this.props.profile : ''
 
-        var formInline= {
-        	display: 'inherit',
-    		margin: 10
-        }
-        var btnInline = {
-        	margin: 40,
-      		marginLeft: 15
-        }
         return (
+          <div className="Grid center">               
+            <h3>Search Jobs</h3>               
+
+            <div>
+              <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
                 
-            <div> 
-             <div className="Grid center">               
-                 <h1>Search Jobs</h1>               
-            </div>
-            <div className="Grid center">
-                <form onSubmit={ this.handleSubmitGetJobs} style={formInline}>
-                    <TextInput 
-                    label='Title'
-                    inputType='text'
-                    name='keyWord'
-                    controlFunction={this.handleKeyWordSearch}
-                    content={this.state.keyWord}
-                    placeHolder='Search For Keyword'/>
-                     <TextInput 
+                  <TextInput 
+                  classes='test'
+                  label='Title'
+                  inputType='text'
+                  name='keyWord'
+                  controlFunction={this.handleKeyWordSearch}
+                  content={this.state.keyWord}
+                  placeHolder='Search For Keyword'/>
+                
+
+                
+                  <TextInput 
                     label='Location'
                     inputType='text'
                     name='location'
                     controlFunction={this.handleLocationSearch}
                     content={this.state.location}
                     placeHolder='Austin,TX'/>
-                    <button type="submit" style={btnInline}>
-                    Search
-                    </button>
-                </form>  
-            </div>  
-            <hr/>
-         
-        </div>    
+                
+                  
+                  <div className="form-element">
+                    <button type="submit">Search</button>
+                  </div>
+                  
+                
+              </form>  
+            </div>
+          </div>
 
         )
     }
