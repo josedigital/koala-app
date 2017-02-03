@@ -3,8 +3,7 @@ import { SearchResults } from '../index'
 import './HomePage.css'
 
 const HomePage = () =>
-  <div className="Home">
-    <h2>Homepage</h2>   
+  <div className="Home"> 
     <SearchResults /> 
   </div>
 

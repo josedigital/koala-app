@@ -1,7 +1,10 @@
+.Site__title{
+	padding: 20px;
+}
 .Main-nav__item {
   list-style: none;
-  margin: 0;
-  padding: 1rem;
+  margin: 10px auto;
+  padding: 1rem 1rem;
 }
 
 .Main-nav__link {
@@ -12,6 +15,8 @@
   border-radius: 50%;
   height: 50px;
   margin: 0px 10px;
+  margin: 0 auto;
+  display: block;
 }
 
 .Profile{
