@@ -1,0 +1,12 @@
+.formInline {
+    display: 'inherit';
+    margin: 10px;
+}
+
+.btnInline {
+    margin: 40px;
+    marginLeft: 15px;
+}
+.inputInline {
+  padding: 10px;
+}

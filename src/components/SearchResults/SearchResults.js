@@ -31,7 +31,7 @@ class SearchResults extends Component {
       return (
         <div>
           <SearchForm setSearchResults={this.setSearchResults} /> 
-          { message }
+          <div className="text-center">{ message }</div>
           <JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />
         </div>
       )
