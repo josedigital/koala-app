@@ -3,7 +3,7 @@ import SearchResults from '../SearchResults/SearchResults';
 
 const Dashboard = ( props ) => {
 	return (
-		<div className="container full">
+		<div className="container">
 
             <div className="Grid around">
                 <div className="Cell 12"> 

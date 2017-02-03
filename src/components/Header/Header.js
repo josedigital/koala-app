@@ -3,20 +3,7 @@ import { Link } from 'react-router'
 import './Header.css'
 
 const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }) =>
-<<<<<<< HEAD
-  <div>
-    <h1>Koala App</h1>
-    <nav className="Main-nav">
-      <ul className="Grid center">
-        <li className="Cell Main-nav__item"><Link to='/' className="Main-nav__link">Home</Link></li>
-        <li className="Cell Main-nav__item"><Link to='/about' className="Main-nav__link">About+</Link></li>
-        <li className="Cell Main-nav__item"><Link to='/job-list' className="Main-nav__link">Job List</Link></li>
-        <li className="Cell Main-nav__item"><Link to='/note-list' className="Main-nav__link">Note List</Link></li>
-        <li className="Cell Main-nav__item"><Link to='/note-edit' className="Main-nav__link">Note Edit</Link></li>
-        <li className="Cell Main-nav__item"><Link to='/search-results' className="Main-nav__link">Search Results</Link></li>
-        <li className="Cell Main-nav__item"><Link to='/misc' className="Main-nav__link">Misc</Link></li>
-        <li className="Cell Main-nav__item"><Link to='/dashboard' className="Main-nav__link">Dashboard</Link></li>
-=======
+
   <div className="Grid top">
     <div className="Cell three first">
         <h1>Koala App</h1>
@@ -27,7 +14,8 @@ const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }
             <li className="Cell Main-nav__item"><Link to='/' className="Main-nav__link">Home</Link></li>
             <li className="Cell Main-nav__item"><Link to='/job-list' className="Main-nav__link">Job List</Link></li>
             <li className="Cell Main-nav__item"><Link to='/note-list' className="Main-nav__link">Note List</Link></li>            
-            <li className="Cell Main-nav__item"><Link to='/search-results' className="Main-nav__link">Search Results</Link></li>           
+            <li className="Cell Main-nav__item"><Link to='/search-results' className="Main-nav__link">Search Results</Link></li>
+            <li className="Cell Main-nav__item"><Link to='/dashboard' className="Main-nav__link">Dashboard</Link></li>        
           </ul>
         </nav>
     </div>
@@ -36,7 +24,6 @@ const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }
             { !isAuthenticated ? (
               <button onClick={onLoginClick}>Login</button>
             ) : (
->>>>>>> 68f284a19dea1876d8b61da023cfc3e98f400f1a
 
               <div className="Profile">
                  <div className="Cell two">
