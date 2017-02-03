@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { SearchResults } from '../index'
 import './HomePage.css'
 
