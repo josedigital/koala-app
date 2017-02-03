@@ -10,4 +10,10 @@
 
 .Profile__image {
   border-radius: 50%;
+  height: 50px;
+  margin: 0px 10px;
+}
+
+.Profile{
+	display: inherit;
 }

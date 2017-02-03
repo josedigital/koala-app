@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const ListItem = ({ result, handleSave, url }) => {
+const ListItem = ({ result, saveJob, url }) => {
 	return (
 		<div className="container medium center">
 			<h4>{result.title}</h4>
@@ -8,7 +8,7 @@ const ListItem = ({ result, handleSave, url }) => {
 			<p>{result.location}</p>
 			<a href={result.url} target="_blank" value={url}>Job Description</a>
 			<br />
-			<button onClick={ () => { handleSave(result) } }>Save Job</button>
+			<button onClick={ () => { saveJob(result) } }>Save Job</button>
 			<hr/>
 		</div>
 	)
