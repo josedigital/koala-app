@@ -11,7 +11,10 @@ class SearchResults extends Component {
     super(props)
     this.state = {
         jobList: [],
-        message: ''
+        message: '',
+        jobListEmpty: [{
+          title:'You have no saved jobs'
+        }]
     }
 
     this.setSearchResults = this.setSearchResults.bind(this)      
@@ -28,6 +31,12 @@ class SearchResults extends Component {
     render () {
       const profile = (this.props.profile) ? this.props.profile : ''
       const message = this.state.message
+      //-g message
+      //Trying to write a message to user that will print on the dashboard's left cell when you have no saved jobs. 
+
+      // const jobs = (this.state.jobList >=0) ? this.sate.jobList : this.state.jobListEmpty
+
+      //change prop value in line 39 to jobs
 
       return (
         <div className={this.props.isHome ? 'Home' : ''}>
