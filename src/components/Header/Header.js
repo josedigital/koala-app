@@ -3,7 +3,6 @@ import { Link } from 'react-router'
 import './Header.css'
 
 const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }) =>
-
   <div className="Grid top">
     <div className="Cell three first">
         <h1>Koala App</h1>
