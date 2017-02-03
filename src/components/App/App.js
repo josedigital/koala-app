@@ -60,7 +60,7 @@ class App extends React.Component {
     		message: 'You have to login to save jobs'
     	})
     }
-	}    
+	}
 
   deleteJob (jobId) {
     const email = this.props.profile.email

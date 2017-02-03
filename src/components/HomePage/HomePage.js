@@ -2,9 +2,9 @@ import React from 'react'
 import { SearchResults } from '../index'
 import './HomePage.css'
 
-const HomePage = () =>
+const HomePage = ({saveJob}) =>
   <div className="Home"> 
-    <SearchResults /> 
+    <SearchResults saveJob={saveJob} /> 
   </div>
 
 export default HomePage
