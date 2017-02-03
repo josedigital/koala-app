@@ -1,24 +1,32 @@
 import React from 'react'
-import SearchForm from '../Forms/SearchForm';
+import SearchResults from '../SearchResults/SearchResults';
 
 const Dashboard = ( props ) => {
 	return (
-		<div className="container large">
-			<div className="Cell"> 
-                <h1><center>Job Title Area</center></h1>
+		<div className="container full">
+
             <div className="Grid around">
-                <div className="Cell fill">
-                    <p>Left Section (1)<br/>Search bar</p>
-                    <SearchForm/>
-                        </div>
-                <div className="Cell fill" >
-                    <h3>Middle Section (2)<br/> Action area</h3>
-                        </div>
-                <div className="Cell fill">
-                    <h3>Right Section (3)<br/> Saved Jobs/Notes</h3>
-                        </div>
+                <div className="Cell 12"> 
+                    <h2><center>Job Title Area</center></h2>
+                </div>
+            </div>
+                            
+            <div className="Grid">
+
+                <div className="Cell four">
+                    <SearchResults/>
+                </div>
+
+                <div className="Cell four" >
+                    <p>Middle Section (2)<br/> Action area</p>
+                </div>
+
+                <div className="Cell four">
+                    <p>Right Section (3)<br/> Saved Jobs/Notes</p>
+                </div>
+
 			</div>
-			</div>
+
 		</div>  
 	)
 }

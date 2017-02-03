@@ -34,37 +34,30 @@ class SearchForm extends Component {
     }
 
     handleSubmitGetJobs(e){
-        e.preventDefault();        
-        var term;
-        var location;
-        var results;      
+      e.preventDefault();
+      var term;
+      var location;
+      var results;      
 
-        (this.state.keyWord == '') ? term = 'all' : term = this.state.keyWord;  
-        console.log("search term" + term); 
+      (this.state.keyWord == '') ? term = 'all' : term = this.state.keyWord;
+      (this.state.location == '') ? location = 'all' : location = this.state.location;
 
-        (this.state.location == '') ? location = 'all' : location = this.state.location;        
-        console.log("search location" + location); 
-
-
-        jobsApiSearch(term, location).then(function(response) {
-           this.setState({searchResults: response.data})
-           results = this.state.searchResults;
-        // send results returned to the parent component
-           this.props.setSearchResults(results);          
-        }.bind(this));       
+      jobsApiSearch(term, location).then(function(response) {
+          this.setState({searchResults: response.data})
+          results = this.state.searchResults;
+      // send results returned to the parent component
+          this.props.setSearchResults(results);
+      }.bind(this));       
     }
 
 
 
     render() {
-        console.log("Inside Search Form Component");
         const profile = (this.props.profile) ? this.props.profile : ''
 
         return (
-          <div className="Grid center">               
-            <h3>Search Jobs</h3>               
-
-            <div>
+          <div className="Grid center">
+            <h3 className="Search-title">Search Jobs</h3>
               <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
                 
                   <TextInput 
@@ -93,7 +86,7 @@ class SearchForm extends Component {
                   
                 
               </form>  
-            </div>
+            
           </div>
 
         )
