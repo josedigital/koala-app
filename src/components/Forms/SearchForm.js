@@ -61,10 +61,10 @@ class SearchForm extends Component {
         const profile = (this.props.profile) ? this.props.profile : ''
 
         return (
-          <div className="Grid center">               
-            <h3>Search Jobs</h3>               
+          <div className="Grid center">
+            <h3 className="Search-title">Search Jobs</h3>
 
-            <div>
+            
               <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
                 
                   <TextInput 
@@ -93,7 +93,7 @@ class SearchForm extends Component {
                   
                 
               </form>  
-            </div>
+            
           </div>
 
         )
