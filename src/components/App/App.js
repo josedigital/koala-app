@@ -84,7 +84,7 @@ class App extends React.Component {
       <div className="container large">
         <HeaderContainer />
         {
-          this.props.isAuthenticated ? childrenWithProps : <SearchResults />
+          this.props.isAuthenticated ? childrenWithProps : <SearchResults isHome={true} />
         }
         { 
           this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} deleteJob={this.deleteJob} />
