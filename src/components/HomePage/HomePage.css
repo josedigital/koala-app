@@ -1,12 +1,10 @@
-.formInline {
-    display: 'inherit';
-    margin: 10px;
+.Home .Job-search-form {
+  display: flex;
+}
+.Home .Job-search-form label {
+  display: none;
+}
+.Home .Job-search-form .form-element {
+  padding: 1rem;
 }
 
-.btnInline {
-    margin: 40px;
-    marginLeft: 15px;
-}
-.inputInline {
-  padding: 10px;
-}

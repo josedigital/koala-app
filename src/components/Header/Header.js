@@ -4,38 +4,32 @@ import './Header.css'
 
 const Header = ({ isAuthenticated, profile, error, onLoginClick, onLogoutClick }) =>
   <div className="Grid top">
-    <div class="Cell three first">
-        <h5>Koala App</h5>
+    <div className="Cell three first">
+        <h1>Koala App</h1>
     </div>
-     <div class="Cell six third">
+     <div className="Cell fill">
         <nav className="Main-nav">
           <ul className="Grid center">
             <li className="Cell Main-nav__item"><Link to='/' className="Main-nav__link">Home</Link></li>
-            <li className="Cell Main-nav__item"><Link to='/about' className="Main-nav__link">About+</Link></li>
             <li className="Cell Main-nav__item"><Link to='/job-list' className="Main-nav__link">Job List</Link></li>
-            <li className="Cell Main-nav__item"><Link to='/note-list' className="Main-nav__link">Note List</Link></li>
-            <li className="Cell Main-nav__item"><Link to='/note-edit' className="Main-nav__link">Note Edit</Link></li>
-            <li className="Cell Main-nav__item"><Link to='/search-results' className="Main-nav__link">Search Results</Link></li>
-            <li className="Cell Main-nav__item"><Link to='/misc' className="Main-nav__link">Misc</Link></li>
-
+            <li className="Cell Main-nav__item"><Link to='/note-list' className="Main-nav__link">Note List</Link></li>            
+            <li className="Cell Main-nav__item"><Link to='/search-results' className="Main-nav__link">Search Results</Link></li>           
           </ul>
         </nav>
     </div>
-     <div class="Cell three second"> 
-         <div class="Grid center between">
+      <div className="Cell three"> 
+         <div className="Grid center between">
             { !isAuthenticated ? (
               <button onClick={onLoginClick}>Login</button>
             ) : (
 
               <div className="Profile">
-                 <div className="Cell four">
+                 <div className="Cell two">
                   <img src={profile.picture} height="100vh" className="Profile__image" />
                 </div>
-                <div className="Cell four fill">
-                  <span>Welcome, {profile.nickname}</span> 
-                </div>
-                <div className="Cell three">
-                  <button onClick={onLogoutClick}>Logout</button>
+                <div className="Cell eight fill">
+                  Welcome, {profile.nickname} <br/>
+                   <a onClick={onLogoutClick}>Logout</a>
                 </div>
               </div>
             )}

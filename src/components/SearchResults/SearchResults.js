@@ -28,8 +28,9 @@ class SearchResults extends Component {
     render () {
       const profile = (this.props.profile) ? this.props.profile : ''
       const message = this.state.message
+
       return (
-        <div>
+        <div className={this.props.isHome ? 'Home' : ''}>
           <SearchForm setSearchResults={this.setSearchResults} /> 
           <div className="text-center">{ message }</div>
           <JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />

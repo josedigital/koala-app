@@ -1,10 +1,11 @@
 import React from 'react'
-import SearchResults from '../SearchResults/SearchResults'
+
+import { SearchResults } from '../index'
+import './HomePage.css'
 
 const HomePage = () =>
-  <div>
-    <h2>Homepage</h2> 
-    <SearchResults />
+  <div className="Home"> 
+    <SearchResults /> 
   </div>
 
 export default HomePage
