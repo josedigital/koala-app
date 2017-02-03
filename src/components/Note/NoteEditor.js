@@ -1,4 +1,5 @@
 import React from 'react'
+import {noteHelpers} from '../../utils/helpers'
 
 export default class NoteEditor extends React.Component {
   constructor(props){
@@ -6,8 +7,11 @@ export default class NoteEditor extends React.Component {
     this.state={
       editing: false,
       content: 'testing',
-      element_class: 'editor'
+      jobNote: '',
+      noteId:'',
+      noteCategory: '',
     };
+    this.handleSubmitEditedNote = this.handleSubmitEditedNote.bind(this);
     this.startEditing = this.startEditing.bind(this);
 		this.finishEditing = this.finishEditing.bind(this);
 		this.newChanges = this.newChanges.bind(this);
@@ -17,8 +21,19 @@ export default class NoteEditor extends React.Component {
 
   componentDidMount() {
     this.setState({
-      content: this.props.content ? this.props.content: ''
+      content: this.props.content ? this.props.content: '',
+      jobNote: this.props.note.noteText,
+      noteId: this.props.note._id,
+      noteCategory: this.props.note.category
     });
+  }
+
+  handleSubmitEditedNote(e){
+    // e.preventDefault()
+    noteHelpers.editNote(this.props.note._id, this.state.content, this.props.note.category).then(function(response){
+      console.log("note updated for " + this.state.noteId + " category " + this.props.note.category)
+      console.log(response.data)
+    }.bind(this));
   }
 
   finishEditing (e) {
@@ -26,6 +41,7 @@ export default class NoteEditor extends React.Component {
     this.setState({
       editing: false
     })
+    this.handleSubmitEditedNote(e);
 
     // if(this.props.onEditingFinish){
     //   this.props.onEditingFinish(e, this.state.content);
@@ -53,9 +69,9 @@ export default class NoteEditor extends React.Component {
   renderEdit () {
     return (
       <div>
-        <textarea autoFocus className={this.state.element_class + "-edit-area"} onChange={this.newChanges} value={this.state.content} onBlur={this.finishEditing} />
+        <textarea autoFocus onChange={this.newChanges} value={this.state.content} onBlur={this.finishEditing} />
         <div>
-          <button className={this.state.element_class + "-finish-btn"} onClick={this.finishEditing} type="button">Finish Edit</button>
+          <button onClick={this.finishEditing} type="button">Finish Edit</button>
         </div>
       </div>
     )
@@ -63,7 +79,7 @@ export default class NoteEditor extends React.Component {
 
   renderNoteToEdit () {
     return (
-      <span className={this.state.element_class + "-editingNote"} onClick={this.startEditing}>
+      <span onClick={this.startEditing}>
         {this.state.content}
       </span>
     )
