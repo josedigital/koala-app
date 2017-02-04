@@ -12,7 +12,6 @@ export default function createRoutes() {
       <Route path='/about' component={AboutPage} />
       <Route path='/job-list' component={CustomJob} />
       <Route path='/note-list' component={Note} />
-      <Route path='/note-edit' component={NoteEdit} />
       <Route path = '/search-results' component = { SearchResults } />
       <Route path ='/edit-job' component = { EditJob } />
       <Route path = '/misc' component = { Misc } />
