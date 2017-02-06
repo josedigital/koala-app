@@ -10,48 +10,33 @@ class SearchResults extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        jobList: [],
-        message: ''
+      jobList: [],
+      jobListEmpty: [{
+        title:'You have no saved jobs'
+      }]
     }
 
-    this.handleSave = this.handleSave.bind(this)
-    this.setSearchResults = this.setSearchResults.bind(this)
-            
+    this.setSearchResults = this.setSearchResults.bind(this)      
   }
 
-	handleSave (result) {
-    if (this.props.profile) {
-    	jobHelpers.saveJob(this.props.profile.email, result.title, result.company, result.url, result.location)//missing this.state.summary from api call
-    		.then(function (response) {
-    			console.log(response.data)
-    		}.bind(this))
-    } else {
-    	console.log('you have to be logged in')
-    	this.setState({
-    		message: 'You have to login to save jobs'
-    	})
-    }
 
-	}    
-
-    setSearchResults (results){
-      this.setState({
-        jobList: results
-      });
-    }
+  setSearchResults (results){
+    this.setState({
+      jobList: results
+    });
+  }
 
 
-    render () {
-      const profile = (this.props.profile) ? this.props.profile : ''
-      const message = this.state.message
-      return (
-        <div>
-          <SearchForm setSearchResults={this.setSearchResults} /> 
-          { message }
-          <JobList jobList={this.state.jobList} handleSave={this.handleSave} />
-        </div>
-      )
-    }
+  render () {
+    const profile = (this.props.profile) ? this.props.profile : ''
+
+    return (
+      <div className='Search-results'>
+        <SearchForm setSearchResults={this.setSearchResults} /> 
+        <JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />
+      </div>
+    )
+  }
 }
 
 export default SearchResults

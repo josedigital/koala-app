@@ -1,5 +1,6 @@
 import { browserHistory } from 'react-router'
 import AuthService from '../utils/AuthService'
+import { jobHelpers } from '../utils/helpers'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
@@ -19,13 +20,19 @@ export function checkLogin() {
           return dispatch(loginError(error))
         AuthService.setToken(authResult.idToken) // static method
         AuthService.setProfile(profile) // static method
-        return dispatch(loginSuccess(profile))
+        console.log(profile)
+        jobHelpers.getJobs(profile.email).then(function(response) {
+          return dispatch(loginSuccess(profile, response.data.Jobs))
+        }.bind(this));
+        
       })
     })
     // Add callback for lock's `authorization_error` event
     authService.lock.on('authorization_error', (error) => dispatch(loginError(error)))
   }
 }
+
+
 
 export function loginRequest() {
   authService.login()
@@ -34,11 +41,12 @@ export function loginRequest() {
   }
 }
 
-export function loginSuccess(profile) {
-  browserHistory.push('/')
+export function loginSuccess(profile, savedJobs) {
+  browserHistory.push('/dashboard')
   return {
     type: LOGIN_SUCCESS,
-    profile
+    profile,
+    savedJobs
   }
 }
 

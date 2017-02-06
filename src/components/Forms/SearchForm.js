@@ -34,70 +34,60 @@ class SearchForm extends Component {
     }
 
     handleSubmitGetJobs(e){
-        e.preventDefault();        
-        var term;
-        var location;
-        var results;      
+      e.preventDefault();
+      var term;
+      var location;
+      var results;      
 
-        (this.state.keyWord == '') ? term = 'all' : term = this.state.keyWord;  
-        console.log("search term" + term); 
+      (this.state.keyWord == '') ? term = 'all' : term = this.state.keyWord;
+      (this.state.location == '') ? location = 'all' : location = this.state.location;
 
-        (this.state.location == '') ? location = 'all' : location = this.state.location;        
-        console.log("search location" + location); 
-
-
-        jobsApiSearch(term, location).then(function(response) {
-           this.setState({searchResults: response.data})
-           results = this.state.searchResults;
-        // send results returned to the parent component
-           this.props.setSearchResults(results);          
-        }.bind(this));       
+      jobsApiSearch(term, location).then(function(response) {
+          this.setState({searchResults: response.data})
+          results = this.state.searchResults;
+      // send results returned to the parent component
+          this.props.setSearchResults(results);
+      }.bind(this));       
     }
 
 
 
     render() {
-        console.log("Inside Search Form Component");
         const profile = (this.props.profile) ? this.props.profile : ''
 
-        var formInline= {
-        	display: 'inherit',
-    		margin: 10
-        }
-        var btnInline = {
-        	margin: 40,
-      		marginLeft: 15
-        }
         return (
+          <div className="Search-form">
+            <h3 className="Search-title">Search Jobs</h3>
+              <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
                 
-            <div> 
-             <div className="Grid center">               
-                 <h1>Search Jobs</h1>               
-            </div>
-            <div className="Grid center">
-                <form onSubmit={ this.handleSubmitGetJobs} style={formInline}>
-                    <TextInput 
-                    label='Title'
-                    inputType='text'
-                    name='keyWord'
-                    controlFunction={this.handleKeyWordSearch}
-                    content={this.state.keyWord}
-                    placeHolder='Search For Keyword'/>
-                     <TextInput 
+                  <TextInput 
+                  classes='test'
+                  label='Title'
+                  inputType='text'
+                  name='keyWord'
+                  controlFunction={this.handleKeyWordSearch}
+                  content={this.state.keyWord}
+                  placeHolder='Search For Keyword'/>
+                
+
+                
+                  <TextInput 
                     label='Location'
                     inputType='text'
                     name='location'
                     controlFunction={this.handleLocationSearch}
                     content={this.state.location}
                     placeHolder='Austin,TX'/>
-                    <button type="submit" style={btnInline}>
-                    Search
-                    </button>
-                </form>  
-            </div>  
-            <hr/>
-         
-        </div>    
+                
+                  
+                  <div className="form-element">
+                    <button type="submit">Search</button>
+                  </div>
+                  
+                
+              </form>  
+            
+          </div>
 
         )
     }

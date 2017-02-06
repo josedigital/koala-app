@@ -1,0 +1,15 @@
+.Search-title {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+.Home .Job-search-form {
+  display: flex;
+}
+.Home .Job-search-form label {
+  display: none;
+}
+.Home .Job-search-form .form-element {
+  padding: 1rem;
+}
+

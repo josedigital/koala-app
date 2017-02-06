@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { checkLogin } from '../../actions'
 
-import { App } from '../../components'
+import { Dashboard } from '../../components'
 
 const mapStateToProps = (state) => {
   const { isAuthenticated, profile, savedJobs, error } = state.auth
@@ -19,10 +19,10 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-const AppContainer = connect(
+const DashboardContainer = connect(
   // null, // no mapStateToProps
   mapStateToProps,
   mapDispatchToProps
 )(App)
 
-export default AppContainer
+export default DashboardContainer
