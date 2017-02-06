@@ -13,7 +13,8 @@ class SearchResults extends Component {
       jobList: [],
       jobListEmpty: [{
         title:'You have no saved jobs'
-      }]
+      }],
+      classes: this.props.classes
     }
 
     this.setSearchResults = this.setSearchResults.bind(this)      
@@ -31,7 +32,7 @@ class SearchResults extends Component {
     const profile = (this.props.profile) ? this.props.profile : ''
 
     return (
-      <div className='Search-results'>
+      <div className={this.props.classes}>
         <SearchForm setSearchResults={this.setSearchResults} /> 
         <JobList jobList={this.state.jobList} saveJob={this.props.saveJob} />
       </div>
