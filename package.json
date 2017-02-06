@@ -23,7 +23,7 @@
     "homepage": "https://github.com/amaurymartiny/react-redux-auth0-kit",
     "scripts": {
         "start": "node server",
-        "build": "webpack --config ./webpack.production.config.js --progress --profile --colors",
+        "build": "webpack --config ./webpack.production.config.js --progress --profile --colors"
        
     },
     "dependencies": {
