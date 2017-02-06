@@ -55,7 +55,13 @@ if (isDeveloping) {
 
   //--------------------- MONGOOSE
   
-  mongoose.connect('mongodb://localhost/koalaV2');
+  //mongoose.connect('mongodb://localhost/koalaV2');//origin changed for heroku test
+  var databaseUri = 'mongodb://localhost/koalaV2';
+  if (process.env.MONGODB_URI){
+    mongoose.connect(process.env.MONGODB_URI);
+  }else{
+    mongoose.connect(databaseUri)
+  }
   var db = mongoose.connection;
   db.on("error", function(err){
       console.log("Mongoose connection error", err);
