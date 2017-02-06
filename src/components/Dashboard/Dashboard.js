@@ -1,5 +1,5 @@
 import React from 'react'
-import { SavedJobsList } from '../index'
+import { SavedJobsList, SearchResults } from '../index'
 import { checkUser, createUser, isEmpty, jobHelpers } from '../../utils/helpers'
 
 const REQUEST = 'REQUEST'
@@ -23,7 +23,6 @@ class Dashboard extends React.Component {
   }
 
   componentWillMount () {
-    console.log('will mount')
     if (this.props.profile) {
       this.getSavedJobs(this.props.profile.email)
       checkUser(this.props.profile.nickname)
@@ -89,14 +88,13 @@ class Dashboard extends React.Component {
     return (
       <div className="Grid">
         <div className="Cell four">
-          left
           {
             this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} deleteJob={this.deleteJob} />
           }
           
         </div>
         <div className="Cell four">
-          center
+          <SearchResults saveJob={this.saveJob} />
         </div>
         <div className="Cell four">
           right

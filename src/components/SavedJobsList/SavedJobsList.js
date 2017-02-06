@@ -2,11 +2,10 @@ import React from 'react'
 import SavedJobItem from './SavedJobItem'
 
 const SavedJobsList = ({jobs, deleteJob}) => {
-  console.log('jobs'+jobs)
-  const savedJob = jobs.map( (job) => <SavedJobItem key={job._id} title={job.title} id={job._id} deleteJob={deleteJob} />)
+  const savedJobs = jobs.length > 0 ? jobs.map( (job) => <SavedJobItem key={job._id} title={job.title} id={job._id} deleteJob={deleteJob} />) : <h4>You have no saved jobs at this time.</h4>
   return (
     <ul>
-      {savedJob}
+      {savedJobs}
     </ul>
   )
 }

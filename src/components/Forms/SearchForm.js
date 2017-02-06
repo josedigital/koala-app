@@ -56,7 +56,7 @@ class SearchForm extends Component {
         const profile = (this.props.profile) ? this.props.profile : ''
 
         return (
-          <div className="Grid center">
+          <div className="Search-form">
             <h3 className="Search-title">Search Jobs</h3>
               <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
                 

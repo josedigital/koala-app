@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import { AppContainer } from './containers'
-import { HomePage, Dashboard, AboutPage, CustomJob, NotFoundPage, Note, NoteEdit, SearchResults, EditJob, Misc, Delete } from './components'
+import { HomePage, Dashboard, AboutPage, CustomJob, NotFoundPage, Note, NoteEdit, SearchResults, EditJob, Misc, Delete, DashboardEditJob, DashboardEditNote, DashboardNoteList, DashboardSearchJobs } from './components'
 
 export default function createRoutes() {
   return(
