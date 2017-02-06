@@ -48,13 +48,13 @@ module.exports = {
   module: {
     // First, run the linter.
     // It's important to do this before Babel processes the JS.
-    preLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint',
-        exclude: /node_modules/
-      }
-    ],
+    // preLoaders: [
+    //   {
+    //     test: /\.(js|jsx)$/,
+    //     loader: 'eslint',
+    //     exclude: /node_modules/
+    //   }
+    // ],
     loaders: [
       // Process JS with Babel.
       {
