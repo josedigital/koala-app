@@ -6,30 +6,30 @@ import TextInput from '../Forms/TextInput';
 import ListItem from '../SearchResults/ListItem';
 
 class SearchForm extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            keyWord : '',
-            location: '',
-            searchResults: []
-        }
+  constructor(props) {
+    super(props)
+    this.state = {
+      keyWord : '',
+      location: '',
+      searchResults: []
+    }
 
-         this.handleKeyWordSearch = this.handleKeyWordSearch.bind(this);
-         this.handleLocationSearch = this.handleLocationSearch.bind(this);
-         this.handleSubmitGetJobs = this.handleSubmitGetJobs.bind(this);
+    this.handleKeyWordSearch = this.handleKeyWordSearch.bind(this);
+    this.handleLocationSearch = this.handleLocationSearch.bind(this);
+    this.handleSubmitGetJobs = this.handleSubmitGetJobs.bind(this);
        
     }
 
     handleKeyWordSearch(e){
-        this.setState({
-          keyWord: e.target.value
+      this.setState({
+        keyWord: e.target.value
       })
     }
 
 
     handleLocationSearch(e){
-        this.setState({
-          location: e.target.value
+      this.setState({
+        location: e.target.value
       })
     }
 
@@ -53,43 +53,35 @@ class SearchForm extends Component {
 
 
     render() {
-        const profile = (this.props.profile) ? this.props.profile : ''
+      const profile = (this.props.profile) ? this.props.profile : ''
 
-        return (
-          <div className="Search-form">
-            <h3 className="Search-title">Search Jobs</h3>
-              <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
-                
-                  <TextInput 
-                  classes='test'
-                  label='Title'
-                  inputType='text'
-                  name='keyWord'
-                  controlFunction={this.handleKeyWordSearch}
-                  content={this.state.keyWord}
-                  placeHolder='Search For Keyword'/>
-                
+      return (
+        <div className="Search-form">
+          <form onSubmit={ this.handleSubmitGetJobs} className="Job-search-form">
+            <TextInput 
+            classes='test'
+            label='Title'
+            inputType='text'
+            name='keyWord'
+            controlFunction={this.handleKeyWordSearch}
+            content={this.state.keyWord}
+            placeHolder='Search For Keyword'/>
 
-                
-                  <TextInput 
-                    label='Location'
-                    inputType='text'
-                    name='location'
-                    controlFunction={this.handleLocationSearch}
-                    content={this.state.location}
-                    placeHolder='Austin,TX'/>
-                
-                  
-                  <div className="form-element">
-                    <button type="submit">Search</button>
-                  </div>
-                  
-                
-              </form>  
-            
-          </div>
+            <TextInput 
+            label='Location'
+            inputType='text'
+            name='location'
+            controlFunction={this.handleLocationSearch}
+            content={this.state.location}
+            placeHolder='Austin,TX'/>
 
-        )
+            <div className="form-element">
+              <button type="submit">Search</button>
+            </div>
+          </form>  
+        </div>
+      )
     }
 }
+
 export default SearchForm
