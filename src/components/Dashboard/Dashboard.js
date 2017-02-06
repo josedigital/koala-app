@@ -2,6 +2,8 @@ import React from 'react'
 import { SavedJobsList, SearchResults } from '../index'
 import { checkUser, createUser, isEmpty, jobHelpers } from '../../utils/helpers'
 
+import './Dashboard.css'
+
 const REQUEST = 'REQUEST'
 const SUCCESS = 'SUCCESS'
 const FAILURE = 'FAILURE'
@@ -13,12 +15,14 @@ class Dashboard extends React.Component {
     this.state = {
       saved_jobs: [],
       status: REQUEST,
-      message: ''
+      message: '',
+      search_visible: false
     }
 
     this.getSavedJobs = this.getSavedJobs.bind(this)
     this.saveJob = this.saveJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
+    this.showHideSearch = this.showHideSearch.bind(this)
 
   }
 
@@ -83,10 +87,19 @@ class Dashboard extends React.Component {
 
 
 
+  showHideSearch (e) {
+    e.preventDefault()
+    this.setState({
+      search_visible: !this.state.search_visible
+    })
+  }
+
+
+
 
   render () {
     return (
-      <div className="Grid">
+      <div className="Grid Dashboard">
         <div className="Cell four">
           {
             this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} deleteJob={this.deleteJob} />
@@ -94,7 +107,13 @@ class Dashboard extends React.Component {
           
         </div>
         <div className="Cell four">
-          <SearchResults saveJob={this.saveJob} />
+          <p><a href="" onClick={this.showHideSearch}>New Job Search</a></p>
+          {
+            this.state.search_visible
+              ? <SearchResults saveJob={this.saveJob} classes={'animated fadeInDown'} />
+              : null
+          }
+          
         </div>
         <div className="Cell four">
           right
