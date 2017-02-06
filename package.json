@@ -24,7 +24,7 @@
     "scripts": {
         "start": "node server",
         "build": "webpack --config ./webpack.production.config.js --progress --profile --colors",
-        "postinstall": "npm run build"
+       
     },
     "dependencies": {
         "auth0-lock": "^10.4.0",
