@@ -55,7 +55,7 @@ if (isDeveloping) {
 
   //--------------------- MONGOOSE
   
-  mongoose.connect('mongodb://localhost/koalaV2');
+  mongoose.connect('mongodb://localhost/koalaV2');//origin changed for heroku test
   var db = mongoose.connection;
   db.on("error", function(err){
       console.log("Mongoose connection error", err);
@@ -65,6 +65,8 @@ if (isDeveloping) {
   });
 
 } else {
+  mongoose.connect(process.env.MONGODB_URI);
+  var db = mongoose.connection;
   app.use(express.static(__dirname + '/dist'));
   app.get('*', function response(req, res) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
