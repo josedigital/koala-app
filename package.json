@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "node": "6.9.4"
-  }
+  },
   "description": "Minimal starter boilerplate project with React, Redux, React Router and Auth0 authentication",
   "main": "server.js",
   "repository": {
