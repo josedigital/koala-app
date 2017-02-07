@@ -22,12 +22,8 @@
     },
     "homepage": "https://github.com/amaurymartiny/react-redux-auth0-kit",
     "scripts": {
-        "test": "mocha --require mock-local-storage --require test/setup.js \"src/**/*.spec.js\"",
         "start": "node server",
-        "clean": "rimraf dist",
-        "prebuild": "npm run clean",
         "build": "webpack --config ./webpack.production.config.js --progress --profile --colors",
-        "eslint": "eslint .",
         "postinstall": "npm run build"
     },
     "dependencies": {
@@ -45,9 +41,7 @@
         "react-router-redux": "^4.0.6",
         "redux": "^3.6.0",
         "redux-thunk": "^2.1.0",
-        "request": "^2.79.0"
-    },
-    "devDependencies": {
+        "request": "^2.79.0",
         "autoprefixer": "^6.5.1",
         "babel-core": "^6.18.0",
         "babel-eslint": "^7.0.0",
