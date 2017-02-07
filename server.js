@@ -58,7 +58,7 @@ if (isDeveloping) {
   //mongoose.connect('mongodb://localhost/koalaV2');//origin changed for heroku test
   var databaseUri = 'mongodb://localhost/koalaV2';
   if (process.env.MONGODB_URI){
-    mongoose.connect(process.env.MONGODB_URI);
+    mongoose.connect('mongodb://heroku_cp4fck9c:aijkc1o4ed98lackke5j88cf67@ds127938.mlab.com:27938/heroku_cp4fck9c');
   }else{
     mongoose.connect(databaseUri)
   }
