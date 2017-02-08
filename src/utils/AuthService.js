@@ -2,13 +2,15 @@ import Auth0Lock from 'auth0-lock'
 import jwtDecode from 'jwt-decode'
 
 // import LogoImg from 'images/test-icon.png';
+const isDeveloping = process.env.NODE_ENV !== 'production';
+const callbackURL = isDeveloping ? 'http://localhost:3000/callback' : process.env.CALLBACK_URI
 
 export default class AuthService {
   constructor(clientId, domain) {
     // Configure Auth0 lock
     this.lock = new Auth0Lock(clientId, domain, {
       auth: {
-        redirectUrl: 'http://localhost:3000/callback',
+        redirectUrl: callbackURL,
         responseType: 'token'
       },
       // theme: {

@@ -54,7 +54,7 @@ if (isDeveloping) {
   });
 
   //--------------------- MONGOOSE
-  
+
   //mongoose.connect('mongodb://localhost/koalaV2');//origin changed for heroku test
   var databaseUri = 'mongodb://localhost/koalaV2';
   if (process.env.MONGODB_URI){
@@ -62,6 +62,7 @@ if (isDeveloping) {
   }else{
     mongoose.connect(databaseUri)
   }
+
   var db = mongoose.connection;
   db.on("error", function(err){
       console.log("Mongoose connection error", err);
@@ -72,8 +73,25 @@ if (isDeveloping) {
 
 } else {
   app.use(express.static(__dirname + '/dist'));
-  app.get('*', function response(req, res) {
+  app.get(/^(?!.*(api))/, function response(req, res) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
+  });
+  app.use('/api/*', controllers);
+  fs.readdirSync('./controllers').forEach(function (file) {
+    if(file.substr(-3) == '.js') {
+      route = require('./controllers/' + file);
+      app.use(route, controllers);
+    }
+  });
+
+  //--------------------- MONGOOSE
+  mongoose.connect(process.env.MONGODB_URI);
+  var db = mongoose.connection;
+  db.on("error", function(err){
+      console.log("Mongoose connection error", err);
+  });
+  db.once("open", function(){
+      console.log("Mongoose connection Successful, check port 3000");
   });
 }
 
