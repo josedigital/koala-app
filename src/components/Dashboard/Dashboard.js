@@ -22,7 +22,6 @@ class Dashboard extends React.Component {
     this.getSavedJobs = this.getSavedJobs.bind(this)
     this.saveJob = this.saveJob.bind(this)
     this.deleteJob = this.deleteJob.bind(this)
-    this.viewJob = this.viewJob.bind(this)
     this.showHideSearch = this.showHideSearch.bind(this)
 
   }
@@ -66,11 +65,6 @@ class Dashboard extends React.Component {
   }
 
 
-  viewJob (jobId) {
-    console.log(jobId)
-  }
-
-
   loading () {
     this.getSavedJobs(this.props.profile.email)
     return 'content loading...'
@@ -108,7 +102,7 @@ class Dashboard extends React.Component {
       <div className="Grid Dashboard">
         <div className="Cell four">
           {
-            this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} />
+            this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} deleteJob={this.deleteJob} />
           }
           
         </div>
