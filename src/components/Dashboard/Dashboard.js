@@ -1,6 +1,8 @@
 import React from 'react'
+import { browserHistory, Router, Route, Link, withRouter } from 'react-router'
 import { SavedJobsList, SearchResults } from '../index'
-import { checkUser, createUser, isEmpty, jobHelpers } from '../../utils/helpers'
+import { checkUser, createUser, isEmpty, jobHelpers, noteHelpers } from '../../utils/helpers'
+import NoteListing from '../Note/NoteListing'
 
 import './Dashboard.css'
 
@@ -16,7 +18,8 @@ class Dashboard extends React.Component {
       saved_jobs: [],
       status: REQUEST,
       message: '',
-      search_visible: false
+      search_visible: false,
+      notes:''
     }
 
     this.getSavedJobs = this.getSavedJobs.bind(this)
@@ -67,7 +70,14 @@ class Dashboard extends React.Component {
 
 
   viewJob (jobId) {
-    console.log(jobId)
+    noteHelpers.getNotes(jobId).then(function(response) { 
+    if (response.data.Notes !== this.state.notes) {
+        this.setState({
+          notes:response.data.Notes
+        })
+        // console.log(this.state.notes)//good
+      }
+    }.bind(this));
   }
 
 
@@ -108,7 +118,8 @@ class Dashboard extends React.Component {
       <div className="Grid Dashboard">
         <div className="Cell four">
           {
-            this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} />
+            this.state.status == REQUEST ? this.loading() : <SavedJobsList jobs={this.state.saved_jobs} viewJob={this.viewJob} deleteJob={this.deleteJob} 
+          />
           }
           
         </div>
@@ -122,7 +133,8 @@ class Dashboard extends React.Component {
           
         </div>
         <div className="Cell four">
-          right
+          
+          default
         </div>
         
       </div>

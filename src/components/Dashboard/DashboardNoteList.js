@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router'
 import SearchResults from '../SearchResults/SearchResults';
 import SavedJobsList from '../SavedJobsList/SavedJobsList';
+import Note from '../Note/Note'
+import NoteListing from '../Note/NoteListing'
 
 
 const DashboardNoteList = ( {props} ) => {
@@ -25,15 +27,13 @@ const DashboardNoteList = ( {props} ) => {
 
                 <div className="Cell four" >
                     <Link to='/dashboard/search-jobs'>DashboardSearchJobs</Link>
-                    <p>Vince's CREATE A NOTE Component goes here</p>
-
-                    
+                    <Note />       
                     
                 </div>
 
                 <div className="Cell four">
                     <h4>My Notes</h4>
-                    <p>Vince's LIST OF NOTES goes here</p>
+                    <NoteListing />
                     
                 </div>
 

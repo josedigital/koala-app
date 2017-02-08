@@ -10,7 +10,7 @@ export default class Note extends React.Component {
   constructor (props) {
     super(props)
       this.state = {
-        jobId: this.props.job._id,
+        jobId: '',
         noteCategory:'',
         noteText:''
       }

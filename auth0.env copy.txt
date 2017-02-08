@@ -1,0 +1,2 @@
+AUTH0_CLIENT_ID='YIrXpaojl2Npp8Qh5aFsczkhRtaxjUrT'
+AUTH0_DOMAIN='josedigital.auth0.com'
